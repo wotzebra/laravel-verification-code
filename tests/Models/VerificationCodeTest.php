@@ -2,10 +2,10 @@
 
 namespace NextApps\VerificationCode\Tests\Models;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
-use NextApps\VerificationCode\Tests\TestCase;
+use Illuminate\Support\Str;
 use NextApps\VerificationCode\Models\VerificationCode;
+use NextApps\VerificationCode\Tests\TestCase;
 
 class VerificationCodeTest extends TestCase
 {

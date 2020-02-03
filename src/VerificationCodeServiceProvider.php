@@ -21,7 +21,7 @@ class VerificationCodeServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->bind('verification-code', function(){
+        $this->app->bind('verification-code', function () {
             return new VerificationCodeManager();
         });
 
