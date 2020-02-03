@@ -18,11 +18,7 @@ class VerificationCodeManager
      */
     public function sendCode($verifiable)
     {
-        $testVerifiables = config('verification-code.test_verifiables');
-
-        if (! is_array($testVerifiables)) {
-            $testVerifiables = [];
-        }
+        $testVerifiables = config('verification-code.test_verifiables', []);
 
         if (in_array($verifiable, $testVerifiables)) {
             return;
@@ -51,11 +47,7 @@ class VerificationCodeManager
      */
     public function verify(string $code, string $verifiable)
     {
-        $testVerifiables = config('verification-code.test_verifiables');
-
-        if (! is_array($testVerifiables)) {
-            $testVerifiables = [];
-        }
+        $testVerifiables = config('verification-code.test_verifiables', []);
 
         if (in_array($verifiable, $testVerifiables) && config('verification-code.test_code')) {
             return $code === config('verification-code.test_code');
