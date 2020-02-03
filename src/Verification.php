@@ -20,7 +20,7 @@ class Verification
     {
         $testVerifiables = config('verification-code.test_verifiables');
 
-        if(!is_array($testVerifiables)) {
+        if (! is_array($testVerifiables)) {
             $testVerifiables = [];
         }
 
@@ -47,7 +47,7 @@ class Verification
     {
         $testVerifiables = config('verification-code.test_verifiables');
 
-        if(!is_array($testVerifiables)) {
+        if (! is_array($testVerifiables)) {
             $testVerifiables = [];
         }
 

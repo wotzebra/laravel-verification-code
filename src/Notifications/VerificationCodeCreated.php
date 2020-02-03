@@ -3,10 +3,10 @@
 namespace NextApps\VerificationCode\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Lang;
 
 class VerificationCodeCreated extends Notification implements ShouldQueue
 {
@@ -51,7 +51,7 @@ class VerificationCodeCreated extends Notification implements ShouldQueue
         return (new MailMessage)
             ->subject(Lang::get('Your login code'))
             ->greeting(Lang::get('Hello!'))
-            ->line(Lang::get('Your login code:' . ' ' . $this->code))
+            ->line(Lang::get('Your login code:'.' '.$this->code))
             ->line(Lang::get('Kind regards'));
     }
 }

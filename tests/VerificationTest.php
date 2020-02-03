@@ -2,12 +2,12 @@
 
 namespace NextApps\VerificationCode\Tests;
 
-use Illuminate\Support\Str;
-use NextApps\VerificationCode\Verification;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\AnonymousNotifiable;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
 use NextApps\VerificationCode\Models\VerificationCode;
 use NextApps\VerificationCode\Notifications\VerificationCodeCreated;
+use NextApps\VerificationCode\Verification;
 
 class VerificationTest extends TestCase
 {
