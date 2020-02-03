@@ -21,8 +21,6 @@ class VerificationCodeCreated extends Notification implements ShouldQueue
      * Create a new message instance.
      *
      * @param string $code
-     *
-     * @return void
      */
     public function __construct(string $code)
     {
@@ -32,10 +30,9 @@ class VerificationCodeCreated extends Notification implements ShouldQueue
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via()
     {
         return ['mail'];
     }
@@ -43,15 +40,14 @@ class VerificationCodeCreated extends Notification implements ShouldQueue
     /**
      * Build the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail()
     {
         return (new MailMessage)
-            ->subject(Lang::get('Your login code'))
-            ->greeting(Lang::get('Hello!'))
-            ->line(Lang::get('Your login code:' . ' ' . $this->code))
-            ->line(Lang::get('Kind regards'));
+            ->subject(__('Your login code'))
+            ->greeting(__('Hello!'))
+            ->line(__('Your login code: :code', ['code' => $this->code]))
+            ->line(__('Kind regards'));
     }
 }
