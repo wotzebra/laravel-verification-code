@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Notification;
 use NextApps\VerificationCode\Models\VerificationCode;
 use NextApps\VerificationCode\Notifications\VerificationCodeCreated;
 
-class Verification
+class VerificationCodeManager
 {
     /**
      * Create and send a verification code via mail.
@@ -16,7 +16,7 @@ class Verification
      *
      * @return void
      */
-    public static function sendCode($verifiable)
+    public function sendCode($verifiable)
     {
         $testVerifiables = config('verification-code.test_verifiables');
 
@@ -49,7 +49,7 @@ class Verification
      *
      * @return bool
      */
-    public static function verify(string $code, string $verifiable)
+    public function verify(string $code, string $verifiable)
     {
         $testVerifiables = config('verification-code.test_verifiables');
 
