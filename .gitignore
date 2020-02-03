@@ -1,0 +1,8 @@
+build
+vendor
+tests/Support/temp
+tests/temp
+composer.lock
+phpunit.xml
+.env
+.phpunit.result.cache
