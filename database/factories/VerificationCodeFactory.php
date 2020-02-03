@@ -2,9 +2,9 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use NextApps\VerificationCode\Models\VerificationCode;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
+use NextApps\VerificationCode\Models\VerificationCode;
 
 $factory->define(VerificationCode::class, function (Faker $faker) {
     return [

@@ -17,7 +17,7 @@ abstract class TestCase extends Orchestra
      *
      * @return void
      */
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->loadEnvironmentVariables();
 
@@ -28,7 +28,7 @@ abstract class TestCase extends Orchestra
 
         $this->withFactories(__DIR__.'/../database/factories');
 
-        include_once __DIR__ . '/../database/migrations/create_verification_codes_table.php.stub';
+        include_once __DIR__.'/../database/migrations/create_verification_codes_table.php.stub';
 
         (new \CreateVerificationCodesTable)->up();
     }
