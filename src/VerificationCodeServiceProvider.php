@@ -21,6 +21,7 @@ class VerificationCodeServiceProvider extends ServiceProvider
 
     public function register()
     {
+        $this->app->bind(Verification::class);
         $this->mergeConfigFrom(__DIR__.'/../config/verification-code.php', 'verification-code');
     }
 }

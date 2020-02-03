@@ -4,6 +4,7 @@ namespace NextApps\VerificationCode\Tests;
 
 use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Str;
 use NextApps\VerificationCode\Models\VerificationCode;
 use NextApps\VerificationCode\Notifications\VerificationCodeCreated;
@@ -29,13 +30,52 @@ class VerificationTest extends TestCase
     }
 
     /** @test */
+    public function it_queues_mail_to_verifiable()
+    {
+        $email = $this->faker->safeEmail;
+        $queue = Str::random();
+
+        config()->set('verification-code.queue', $queue);
+
+        Verification::sendCode($email);
+
+        $this->assertNotNull(VerificationCode::where('verifiable', $email)->first());
+
+        Notification::assertSentTo(
+            new AnonymousNotifiable,
+            VerificationCodeCreated::class,
+            function ($notification, $channels, $notifiable) use ($email, $queue) {
+                return $notifiable->routes['mail'] === $email && $notification->queue === $queue;
+            });
+    }
+
+    /** @test */
+    public function it_does_not_queue_mail_to_verifiable()
+    {
+        $email = $this->faker->safeEmail;
+
+        config()->set('verification-code.queue', null);
+
+        Verification::sendCode($email);
+
+        $this->assertNotNull(VerificationCode::where('verifiable', $email)->first());
+
+        Notification::assertSentTo(
+            new AnonymousNotifiable,
+            VerificationCodeCreated::class,
+                function ($notification, $channels, $notifiable) use ($email) {
+                return $notifiable->routes['mail'] === $email && $notification->queue === null;
+            });
+    }
+
+    /** @test */
     public function it_sends_no_mail_to_test_verifiable()
     {
         $email = $this->faker->safeEmail;
 
         config()->set('verification-code.test_verifiables', [$email]);
 
-        app(Verification::class)->sendCode($email);
+        Verification::sendCode($email);
 
         $this->assertNull(VerificationCode::where('verifiable', $email)->first());
 
@@ -51,7 +91,7 @@ class VerificationTest extends TestCase
             'verifiable' => $email,
         ]);
 
-        app(Verification::class)->sendCode($email);
+        Verification::sendCode($email);
 
         $dbOldVerificationCodes = VerificationCode::find($oldVerificationCodes->pluck('id')->toArray());
 
@@ -68,7 +108,7 @@ class VerificationTest extends TestCase
             'verifiable' => $verifiable,
         ]);
 
-        $this->assertTrue(app(Verification::class)->verify($code, $verifiable));
+        $this->assertTrue(Verification::verify($code, $verifiable));
 
         $this->assertNull(VerificationCode::find($verificationCode->id));
     }
@@ -82,7 +122,7 @@ class VerificationTest extends TestCase
             'verifiable' => $verifiable,
         ]);
 
-        $this->assertFalse(app(Verification::class)->verify(Str::random(), $verifiable));
+        $this->assertFalse(Verification::verify(Str::random(), $verifiable));
 
         $this->assertNotNull(VerificationCode::find($verificationCode->id));
     }
@@ -97,7 +137,7 @@ class VerificationTest extends TestCase
             'verifiable' => $verifiable,
         ]);
 
-        $this->assertFalse(app(Verification::class)->verify($code, $verifiable));
+        $this->assertFalse(Verification::verify($code, $verifiable));
 
         $this->assertNotNull(VerificationCode::find($verificationCode->id));
     }
@@ -110,7 +150,7 @@ class VerificationTest extends TestCase
         config()->set('verification-code.test_verifiables', [$verifiable]);
         config()->set('verification-code.test_code', ($code = Str::random()));
 
-        $this->assertTrue(app(Verification::class)->verify($code, $verifiable));
+        $this->assertTrue(Verification::verify($code, $verifiable));
     }
 
     /** @test */
@@ -121,7 +161,7 @@ class VerificationTest extends TestCase
         config()->set('verification-code.test_verifiables', [$verifiable]);
         config()->set('verification-code.test_code', Str::random());
 
-        $this->assertFalse(app(Verification::class)->verify(Str::random(), $verifiable));
+        $this->assertFalse(Verification::verify(Str::random(), $verifiable));
     }
 
     /** @test */
@@ -132,6 +172,6 @@ class VerificationTest extends TestCase
         config()->set('verification-code.test_verifiables', [$verifiable]);
         config()->set('verification-code.test_code', '');
 
-        $this->assertFalse(app(Verification::class)->verify('', $verifiable));
+        $this->assertFalse(Verification::verify('', $verifiable));
     }
 }

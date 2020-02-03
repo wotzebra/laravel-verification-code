@@ -16,7 +16,7 @@ class Verification
      *
      * @return void
      */
-    public function sendCode($verifiable)
+    public static function sendCode($verifiable)
     {
         $testVerifiables = config('verification-code.test_verifiables');
 
@@ -30,9 +30,15 @@ class Verification
 
         $code = VerificationCode::createFor($verifiable);
 
-        Notification::route('mail', $verifiable)
-            ->notify((new VerificationCodeCreated($code))
-            ->onQueue(config('verification-code.queue')));
+        if(config('verification-code.queue') !== null) {
+            Notification::route('mail', $verifiable)
+                ->notify((new VerificationCodeCreated($code))
+                ->onQueue(config('verification-code.queue')));
+        }
+        else {
+            Notification::route('mail', $verifiable)
+                ->notifyNow((new VerificationCodeCreated($code)));
+        }
     }
 
     /**
@@ -43,7 +49,7 @@ class Verification
      *
      * @return bool
      */
-    public function verify(string $code, string $verifiable)
+    public static function verify(string $code, string $verifiable)
     {
         $testVerifiables = config('verification-code.test_verifiables');
 
