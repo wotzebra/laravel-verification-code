@@ -45,7 +45,7 @@ abstract class TestCase extends Orchestra
     }
 
     /**
-     * Load package service provider
+     * Load package service provider.
      *
      * @param \Illuminate\Foundation\Application $app
      *
@@ -59,7 +59,7 @@ abstract class TestCase extends Orchestra
     }
 
     /**
-     * Load package alias
+     * Load package alias.
      *
      * @param  \Illuminate\Foundation\Application $app
      *

@@ -26,12 +26,11 @@ class VerificationCodeManager
 
         $code = VerificationCode::createFor($verifiable);
 
-        if(config('verification-code.queue') !== null) {
+        if (config('verification-code.queue') !== null) {
             Notification::route('mail', $verifiable)
                 ->notify((new VerificationCodeCreated($code))
                 ->onQueue(config('verification-code.queue')));
-        }
-        else {
+        } else {
             Notification::route('mail', $verifiable)
                 ->notifyNow((new VerificationCodeCreated($code)));
         }
