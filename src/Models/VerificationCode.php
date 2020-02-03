@@ -106,12 +106,12 @@ class VerificationCode extends Model
     /**
      * Generate random code.
      */
-    protected static function generateCode() : string
+    protected static function generateCode(): string
     {
         $length = config('verification-code.length');
         $characterSet = static::getCharacterSet();
 
-        if(!is_int($length)) {
+        if (! is_int($length)) {
             $length = 6;
         }
 
@@ -127,14 +127,14 @@ class VerificationCode extends Model
     /**
      * Get the character set.
      */
-    protected static function getCharacterSet() : string
+    protected static function getCharacterSet(): string
     {
         $type = config('verification-code.type');
         $excludedCharacters = config('verification-code.exclude_characters');
 
         $characterSet = defined($type) ? static::$type : static::NUMERIC;
 
-        if(is_array($excludedCharacters)) {
+        if (is_array($excludedCharacters)) {
             return str_replace($excludedCharacters, '', $characterSet);
         }
 
