@@ -47,7 +47,10 @@
         "laravel": {
             "providers": [
                 "NextApps\\VerificationCode\\VerificationCodeServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "VerificationCode": "NextApps\\VerificationCode\\VerificationCode"
+            }
         }
     }
 }
