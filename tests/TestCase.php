@@ -45,6 +45,8 @@ abstract class TestCase extends Orchestra
     }
 
     /**
+     * Load package service provider
+     *
      * @param \Illuminate\Foundation\Application $app
      *
      * @return array
@@ -53,6 +55,20 @@ abstract class TestCase extends Orchestra
     {
         return [
             \NextApps\VerificationCode\VerificationCodeServiceProvider::class,
+        ];
+    }
+
+    /**
+     * Load package alias
+     *
+     * @param  \Illuminate\Foundation\Application $app
+     *
+     * @return array
+     */
+    protected function getPackageAliases($app)
+    {
+        return [
+            'VerificationCode' =>  \NextApps\VerificationCode\VerificationCodeFacade::class,
         ];
     }
 
