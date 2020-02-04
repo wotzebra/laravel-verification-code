@@ -5,7 +5,7 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/nextapps-be/laravel-verification-code.svg?style=flat-square)](https://scrutinizer-ci.com/g/nextapps-be/laravel-verification-code)
 [![Total Downloads](https://img.shields.io/packagist/dt/nextapps-be/laravel-verification-code.svg?style=flat-square)](https://packagist.org/packages/nextapps-be/laravel-verification-code)
 
-This package makes it possible to authenticate a user using a verification code.
+This package makes it possible to authenticate a user via a verification code.
 
 ## Installation
 
@@ -35,14 +35,14 @@ php artisan vendor:publish --provider="NextApps\VerificationCode\VerificationCod
 ## Usage
 
 ### Generate and send a verification code
-```php
-Verification::sendCode($email);
+```php$
+VerificationCode::sendCode($email);
 ```
 This will generate a verification code for the user. The code will be stored in the `verification_codes` table. An email with the generated code will then be sent to the user matching the given email address.
 
 ### Verify a verification code
 ```php
-Verification::verify($code, $email);
+VerificationCode::verify($code, $email);
 ```
 If the verification code is expired or does not match the user's email address, it will return `false`. If valid, it will return `true` and delete the code.
 
