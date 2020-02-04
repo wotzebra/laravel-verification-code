@@ -63,8 +63,8 @@ class VerificationCodeTest extends TestCase
             new AnonymousNotifiable,
             VerificationCodeCreated::class,
                 function ($notification, $channels, $notifiable) use ($email) {
-                return $notifiable->routes['mail'] === $email && $notification->queue === null;
-            });
+                    return $notifiable->routes['mail'] === $email && $notification->queue === null;
+                });
     }
 
     /** @test */
