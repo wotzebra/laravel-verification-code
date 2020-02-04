@@ -1,9 +1,9 @@
 # Laravel verification code
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/nextapps-be/laravel-verification-code.svg?style=flat-square)](https://packagist.org/packages/nextapps-be/laravel-verification-code)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/nextapps/laravel-verification-code.svg?style=flat-square)](https://packagist.org/packages/nextapps/laravel-verification-code)
 [![Build Status](https://img.shields.io/travis/nextapps-be/laravel-verification-code/master.svg?style=flat-square)](https://travis-ci.org/nextapps-be/laravel-verification-code)
 [![Quality Score](https://img.shields.io/scrutinizer/g/nextapps-be/laravel-verification-code.svg?style=flat-square)](https://scrutinizer-ci.com/g/nextapps-be/laravel-verification-code)
-[![Total Downloads](https://img.shields.io/packagist/dt/nextapps-be/laravel-verification-code.svg?style=flat-square)](https://packagist.org/packages/nextapps-be/laravel-verification-code)
+[![Total Downloads](https://img.shields.io/packagist/dt/nextapps/laravel-verification-code.svg?style=flat-square)](https://packagist.org/packages/nextapps/laravel-verification-code)
 
 This package makes it possible to authenticate a user via a verification code.
 
