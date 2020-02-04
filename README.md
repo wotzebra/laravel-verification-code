@@ -35,7 +35,7 @@ php artisan vendor:publish --provider="NextApps\VerificationCode\VerificationCod
 ## Usage
 
 ### Generate and send a verification code
-```php$
+```php
 VerificationCode::sendCode($email);
 ```
 This will generate a verification code for the user. The code will be stored in the `verification_codes` table. An email with the generated code will then be sent to the user matching the given email address.
