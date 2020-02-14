@@ -16,7 +16,7 @@ class VerificationCodeManager
      *
      * @return void
      */
-    public function sendCode($verifiable)
+    public function send($verifiable)
     {
         $testVerifiables = config('verification-code.test_verifiables', []);
 

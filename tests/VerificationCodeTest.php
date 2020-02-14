@@ -16,7 +16,7 @@ class VerificationCodeTest extends TestCase
     {
         $email = $this->faker->safeEmail;
 
-        VerificationCodeFacade::sendCode($email);
+        VerificationCodeFacade::send($email);
 
         $this->assertNotNull(VerificationCode::where('verifiable', $email)->first());
 
@@ -36,7 +36,7 @@ class VerificationCodeTest extends TestCase
 
         config()->set('verification-code.queue', $queue);
 
-        VerificationCodeFacade::sendCode($email);
+        VerificationCodeFacade::send($email);
 
         $this->assertNotNull(VerificationCode::where('verifiable', $email)->first());
 
@@ -55,7 +55,7 @@ class VerificationCodeTest extends TestCase
 
         config()->set('verification-code.queue', null);
 
-        VerificationCodeFacade::sendCode($email);
+        VerificationCodeFacade::send($email);
 
         $this->assertNotNull(VerificationCode::where('verifiable', $email)->first());
 
@@ -74,7 +74,7 @@ class VerificationCodeTest extends TestCase
 
         config()->set('verification-code.test_verifiables', [$email]);
 
-        VerificationCodeFacade::sendCode($email);
+        VerificationCodeFacade::send($email);
 
         $this->assertNull(VerificationCode::where('verifiable', $email)->first());
 
@@ -90,7 +90,7 @@ class VerificationCodeTest extends TestCase
             'verifiable' => $email,
         ]);
 
-        VerificationCodeFacade::sendCode($email);
+        VerificationCodeFacade::send($email);
 
         $dbOldVerificationCodes = VerificationCode::find($oldVerificationCodes->pluck('id')->toArray());
 
