@@ -50,6 +50,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Custom notification
+    |--------------------------------------------------------------------------
+    |
+    | This class contains the notification sent to users upon creation
+    | of the verification code.
+    |
+    | It should implement Illuminate\Contracts\Queue\ShouldQueue.
+    |
+    */
+    'notification' => \NextApps\VerificationCode\Notifications\VerificationCodeCreated::class,
+
+    /*
+    |--------------------------------------------------------------------------
     | Queue
     |--------------------------------------------------------------------------
     |

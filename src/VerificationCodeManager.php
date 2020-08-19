@@ -5,7 +5,6 @@ namespace NextApps\VerificationCode;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use NextApps\VerificationCode\Models\VerificationCode;
-use NextApps\VerificationCode\Notifications\VerificationCodeCreated;
 
 class VerificationCodeManager
 {
@@ -13,12 +12,15 @@ class VerificationCodeManager
      * Create and send a verification code via mail.
      *
      * @param string $verifiable
+     * @param string $channel
      *
      * @return void
      */
-    public function send($verifiable)
+    public function send($verifiable, $channel)
     {
         $testVerifiables = config('verification-code.test_verifiables', []);
+        $notificationClass = config('verification-code.notification');
+        $queue = config('verification-code.queue', null);
 
         if (in_array($verifiable, $testVerifiables)) {
             return;
@@ -26,13 +28,13 @@ class VerificationCodeManager
 
         $code = VerificationCode::createFor($verifiable);
 
-        if (config('verification-code.queue') !== null) {
-            Notification::route('mail', $verifiable)
-                ->notify((new VerificationCodeCreated($code))
-                ->onQueue(config('verification-code.queue')));
+        if ($queue !== null) {
+            Notification::route($channel, $verifiable)
+                ->notify(new $notificationClass($code))
+                ->onQueue($queue);
         } else {
-            Notification::route('mail', $verifiable)
-                ->notifyNow((new VerificationCodeCreated($code)));
+            Notification::route($channel, $verifiable)
+                ->notifyNow(new $notificationClass($code));
         }
     }
 
