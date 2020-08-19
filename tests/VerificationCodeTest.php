@@ -2,9 +2,9 @@
 
 namespace NextApps\VerificationCode\Tests;
 
-use Illuminate\Notifications\AnonymousNotifiable;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Notifications\AnonymousNotifiable;
 use NextApps\VerificationCode\Models\VerificationCode;
 use NextApps\VerificationCode\Notifications\VerificationCodeCreated;
 use NextApps\VerificationCode\VerificationCode as VerificationCodeFacade;

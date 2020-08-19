@@ -16,7 +16,7 @@ class VerificationCodeManager
      *
      * @return void
      */
-    public function send($verifiable, $channel)
+    public function send($verifiable, $channel = 'mail')
     {
         $testVerifiables = config('verification-code.test_verifiables', []);
         $notificationClass = config('verification-code.notification');
@@ -30,8 +30,7 @@ class VerificationCodeManager
 
         if ($queue !== null) {
             Notification::route($channel, $verifiable)
-                ->notify(new $notificationClass($code))
-                ->onQueue($queue);
+                ->notify((new $notificationClass($code))->onQueue($queue));
         } else {
             Notification::route($channel, $verifiable)
                 ->notifyNow(new $notificationClass($code));
