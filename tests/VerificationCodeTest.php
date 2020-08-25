@@ -5,8 +5,10 @@ namespace NextApps\VerificationCode\Tests;
 use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
+use NextApps\VerificationCode\Exceptions\InvalidClassException;
 use NextApps\VerificationCode\Models\VerificationCode;
 use NextApps\VerificationCode\Notifications\VerificationCodeCreated;
+use NextApps\VerificationCode\Notifications\WrongNotification;
 use NextApps\VerificationCode\VerificationCode as VerificationCodeFacade;
 
 class VerificationCodeTest extends TestCase
@@ -172,5 +174,43 @@ class VerificationCodeTest extends TestCase
         config()->set('verification-code.test_code', '');
 
         $this->assertFalse(VerificationCodeFacade::verify('', $verifiable));
+    }
+
+    /** @test */
+    public function it_works_if_notification_config_value_is_empty()
+    {
+        $email = $this->faker->safeEmail;
+
+        VerificationCodeFacade::send($email);
+
+        $this->assertNotNull(VerificationCode::where('verifiable', $email)->first());
+
+        Notification::assertSentTo(
+            new AnonymousNotifiable,
+            VerificationCodeCreated::class,
+            function ($notification, $channels, $notifiable) use ($email) {
+                return $notifiable->routes['mail'] === $email;
+            });
+    }
+
+    /** @test */
+    public function it_throws_an_error_if_notification_does_not_extend_the_verification_notification_class()
+    {
+        $this->expectException(InvalidClassException::class);
+        $this->expectExceptionMessage('The notification should extend the VerificationCodeInterface.');
+        $email = $this->faker->safeEmail;
+
+        config()->set('verification-code.notification', WrongNotification::class);
+
+        VerificationCodeFacade::send($email);
+
+        $this->assertNotNull(VerificationCode::where('verifiable', $email)->first());
+
+        Notification::assertSentTo(
+            new AnonymousNotifiable,
+            VerificationCodeCreated::class,
+            function ($notification, $channels, $notifiable) use ($email) {
+                return $notifiable->routes['mail'] === $email;
+            });
     }
 }

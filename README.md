@@ -60,6 +60,11 @@ You sometimes may want to exclude one or more characters from the selected or de
 ### Expire hours
 The amount of hours it takes for a verification code to expire. You're free to increase this in the config.
 
+### Custom Notification
+If you want to customise the notification that will be used to send the verificationcode create a notification, extend `VerificationCodeInterface`. Make sure you don't forget to pass the verification code to the mail. 
+
+Lastly set the config value `notification` to the full path of your newly created notification.
+
 ### Queue
 In specific cases you may want to put the  verification code notifications on a queue. This can be done by defining the queue in the config (e.g. `queue => 'notifications'`).
 

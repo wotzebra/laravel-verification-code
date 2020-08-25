@@ -4,7 +4,10 @@ namespace NextApps\VerificationCode;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
+use NextApps\VerificationCode\Exceptions\InvalidClassException;
 use NextApps\VerificationCode\Models\VerificationCode;
+use NextApps\VerificationCode\Notifications\VerificationCodeCreated;
+use NextApps\VerificationCode\Notifications\VerificationCodeInterface;
 
 class VerificationCodeManager
 {
@@ -19,8 +22,12 @@ class VerificationCodeManager
     public function send($verifiable, $channel = 'mail')
     {
         $testVerifiables = config('verification-code.test_verifiables', []);
-        $notificationClass = config('verification-code.notification');
+        $notificationClass = config('verification-code.notification', VerificationCodeCreated::class);
         $queue = config('verification-code.queue', null);
+
+        if(!is_subclass_of($notificationClass, VerificationCodeInterface::class)){
+            throw InvalidClassException::handle();
+        }
 
         if (in_array($verifiable, $testVerifiables)) {
             return;
