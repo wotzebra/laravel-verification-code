@@ -25,7 +25,7 @@ class VerificationCodeManager
         $notificationClass = config('verification-code.notification', VerificationCodeCreated::class);
         $queue = config('verification-code.queue', null);
 
-        if(!is_subclass_of($notificationClass, VerificationCodeInterface::class)){
+        if (! is_subclass_of($notificationClass, VerificationCodeInterface::class)) {
             throw InvalidClassException::handle();
         }
 
