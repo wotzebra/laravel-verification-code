@@ -203,14 +203,5 @@ class VerificationCodeTest extends TestCase
         config()->set('verification-code.notification', WrongNotification::class);
 
         VerificationCodeFacade::send($email);
-
-        $this->assertNotNull(VerificationCode::where('verifiable', $email)->first());
-
-        Notification::assertSentTo(
-            new AnonymousNotifiable,
-            VerificationCodeCreated::class,
-            function ($notification, $channels, $notifiable) use ($email) {
-                return $notifiable->routes['mail'] === $email;
-            });
     }
 }
