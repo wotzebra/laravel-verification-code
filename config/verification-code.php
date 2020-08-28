@@ -56,7 +56,9 @@ return [
     | This class contains the notification sent to users upon creation
     | of the verification code.
     |
-    | It should implement Illuminate\Contracts\Queue\ShouldQueue and NextApps\VerificationCode\Notifications\VerificationCodeInterface.
+    | It should implement the following interfaces:
+    | - Illuminate\Contracts\Queue\ShouldQueue
+    | - NextApps\VerificationCode\Notifications\VerificationCodeInterface
     |
     */
     'notification' => \NextApps\VerificationCode\Notifications\VerificationCodeCreated::class,
