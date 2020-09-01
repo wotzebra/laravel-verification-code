@@ -58,7 +58,7 @@ return [
     |
     | It should implement the following interfaces:
     | - Illuminate\Contracts\Queue\ShouldQueue
-    | - NextApps\VerificationCode\Notifications\VerificationCodeInterface
+    | - NextApps\VerificationCode\Notifications\VerificationCodeCreatedInterface
     |
     */
     'notification' => \NextApps\VerificationCode\Notifications\VerificationCodeCreated::class,

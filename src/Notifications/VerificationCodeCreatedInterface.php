@@ -2,7 +2,7 @@
 
 namespace NextApps\VerificationCode\Notifications;
 
-interface VerificationCodeInterface
+interface VerificationCodeCreatedInterface
 {
     /**
      * Create a new message instance.

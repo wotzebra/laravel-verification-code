@@ -61,7 +61,7 @@ You sometimes may want to exclude one or more characters from the selected or de
 The amount of hours it takes for a verification code to expire. You're free to increase this in the config.
 
 ### Custom Notification
-If you want to use a custom notification to send the verification code, you can create your own notification class which should extend the `VerificationCodeInterface`. Make sure you don't forget to pass the verification code to the mail.
+If you want to use a custom notification to send the verification code, you can create your own notification class which should extend the `VerificationCodeCreatedInterface`. Make sure you don't forget to pass the verification code to the mail.
 
 Lastly set the config value `notification` to the full path of your newly created notification.
 

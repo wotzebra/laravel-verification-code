@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class VerificationCodeCreated extends Notification implements ShouldQueue, VerificationCodeInterface
+class VerificationCodeCreated extends Notification implements ShouldQueue, VerificationCodeCreatedInterface
 {
     use Queueable;
 

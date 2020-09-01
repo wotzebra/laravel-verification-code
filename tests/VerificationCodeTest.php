@@ -197,7 +197,7 @@ class VerificationCodeTest extends TestCase
     public function it_throws_an_error_if_notification_does_not_extend_the_verification_notification_class()
     {
         $this->expectException(InvalidClassException::class);
-        $this->expectExceptionMessage('The notification should extend the VerificationCodeInterface.');
+        $this->expectExceptionMessage('The notification should extend the VerificationCodeCreatedInterface.');
         $email = $this->faker->safeEmail;
 
         config()->set('verification-code.notification', WrongNotification::class);

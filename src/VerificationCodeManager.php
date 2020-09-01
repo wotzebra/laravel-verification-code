@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Notification;
 use NextApps\VerificationCode\Exceptions\InvalidClassException;
 use NextApps\VerificationCode\Models\VerificationCode;
 use NextApps\VerificationCode\Notifications\VerificationCodeCreated;
-use NextApps\VerificationCode\Notifications\VerificationCodeInterface;
+use NextApps\VerificationCode\Notifications\VerificationCodeCreatedInterface;
 
 class VerificationCodeManager
 {
@@ -25,7 +25,7 @@ class VerificationCodeManager
         $notificationClass = config('verification-code.notification', VerificationCodeCreated::class);
         $queue = config('verification-code.queue', null);
 
-        if (! is_subclass_of($notificationClass, VerificationCodeInterface::class)) {
+        if (! is_subclass_of($notificationClass, VerificationCodeCreatedInterface::class)) {
             throw InvalidClassException::handle();
         }
 
