@@ -1,14 +1,15 @@
 <?php
 
-namespace NextApps\VerificationCode\Tests;
+namespace NextApps\VerificationCode\Tests\Feature;
 
+use RuntimeException;
 use Illuminate\Support\Facades\Notification;
+use NextApps\VerificationCode\Tests\TestCase;
 use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Support\Testing\Fakes\NotificationFake;
 use NextApps\VerificationCode\Models\VerificationCode;
 use NextApps\VerificationCode\Notifications\VerificationCodeCreated;
 use NextApps\VerificationCode\VerificationCode as VerificationCodeFacade;
-use RuntimeException;
 
 class SendVerificationCodeTest extends TestCase
 {

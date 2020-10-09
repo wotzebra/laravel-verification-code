@@ -1,7 +1,8 @@
 <?php
 
-namespace NextApps\VerificationCode\Tests;
+namespace NextApps\VerificationCode\Tests\Feature;
 
+use NextApps\VerificationCode\Tests\TestCase;
 use NextApps\VerificationCode\Models\VerificationCode;
 use NextApps\VerificationCode\VerificationCode as VerificationCodeFacade;
 

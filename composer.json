@@ -1,6 +1,6 @@
 {
     "name": "nextapps/laravel-verification-code",
-    "description": "A simple way to authenticate a user using verification code.",
+    "description": "A simple way to authenticate a user using a verification code.",
     "keywords": [
         "nextapps",
         "laravel",
@@ -14,17 +14,29 @@
         {
             "name": "Evert Arnould",
             "email": "evert@nextapps.be",
-            "homepage": "https://nextapps.be",
+            "role": "Developer"
+        },
+        {
+            "name": "Günther Debrauwer",
+            "email": "gunther@nextapps.be",
+            "role": "Developer"
+        },
+        {
+            "name": "Philippe Damen",
+            "email": "philippe@nextapps.be",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^7.3"
+        "php": "^7.3",
+        "illuminate/database": "^7.0|^8.0",
+        "illuminate/notifications": "^7.0|^8.0",
+        "illuminate/support": "^7.0|^8.0",
+        "laravel/legacy-factories": "^1.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^4.0",
-        "phpunit/php-code-coverage": "^7.0",
-        "phpunit/phpunit": "^8.4"
+        "orchestra/testbench": "^5.0|^6.0",
+        "phpunit/phpunit": "^9.1"
     },
     "autoload": {
         "psr-4": {
