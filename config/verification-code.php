@@ -36,6 +36,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Max Codes Per Verifiable
+    |--------------------------------------------------------------------------
+    |
+    | By default, only one verification code can be active per verifiable. If
+    | you want to allow multiple active codes per verifiable, then you can
+    | change this setting to a different number. If you want unlimited
+    | codes per verifiable, you have to set this option to "null".
+    |
+    */
+    'max_per_verifiable' => 1,
+
+    /*
+    |--------------------------------------------------------------------------
     | Custom Notification
     |--------------------------------------------------------------------------
     |
