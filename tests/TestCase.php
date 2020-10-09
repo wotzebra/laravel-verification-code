@@ -4,8 +4,8 @@ namespace NextApps\VerificationCode\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Notification;
-use Orchestra\Testbench\TestCase as Orchestra;
 use NextApps\VerificationCode\VerificationCodeServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {

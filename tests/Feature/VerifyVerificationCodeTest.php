@@ -2,8 +2,8 @@
 
 namespace NextApps\VerificationCode\Tests\Feature;
 
-use NextApps\VerificationCode\Tests\TestCase;
 use NextApps\VerificationCode\Models\VerificationCode;
+use NextApps\VerificationCode\Tests\TestCase;
 use NextApps\VerificationCode\VerificationCode as VerificationCodeFacade;
 
 class VerifyVerificationCodeTest extends TestCase

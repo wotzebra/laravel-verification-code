@@ -3,12 +3,12 @@
 namespace NextApps\VerificationCode;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
-use RuntimeException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use NextApps\VerificationCode\Models\VerificationCode;
 use NextApps\VerificationCode\Notifications\VerificationCodeCreated;
 use NextApps\VerificationCode\Notifications\VerificationCodeCreatedInterface;
+use RuntimeException;
 
 class VerificationCodeManager
 {

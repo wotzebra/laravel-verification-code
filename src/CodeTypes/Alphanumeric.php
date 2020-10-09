@@ -11,6 +11,6 @@ class Alphanumeric extends CodeType
      */
     public function getCharacters()
     {
-        return (new Numeric())->getCharacters() . (new Alphabetical())->getCharacters();
+        return (new Numeric())->getCharacters().(new Alphabetical())->getCharacters();
     }
 }

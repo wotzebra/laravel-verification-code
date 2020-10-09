@@ -2,10 +2,10 @@
 
 namespace NextApps\VerificationCode\Tests\Support;
 
-use RuntimeException;
-use NextApps\VerificationCode\Tests\TestCase;
 use NextApps\VerificationCode\CodeTypes\CodeType;
 use NextApps\VerificationCode\Support\CodeGenerator;
+use NextApps\VerificationCode\Tests\TestCase;
+use RuntimeException;
 
 class CodeGeneratorTest extends TestCase
 {
