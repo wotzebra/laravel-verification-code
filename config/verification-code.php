@@ -6,7 +6,7 @@ return [
     | Code Length
     |--------------------------------------------------------------------------
     |
-    | This value defines the length of the generated verification codes.
+    | This value defines the length of every generated verification code.
     |
     */
     'length' => 6,
