@@ -4,11 +4,8 @@ namespace NextApps\VerificationCode\Tests\Support;
 
 use RuntimeException;
 use NextApps\VerificationCode\Tests\TestCase;
-use NextApps\VerificationCode\CodeTypes\Numeric;
 use NextApps\VerificationCode\CodeTypes\CodeType;
 use NextApps\VerificationCode\Support\CodeGenerator;
-use NextApps\VerificationCode\CodeTypes\Alphabetical;
-use NextApps\VerificationCode\CodeTypes\Alphanumeric;
 
 class CodeGeneratorTest extends TestCase
 {

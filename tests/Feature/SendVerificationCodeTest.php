@@ -2,16 +2,12 @@
 
 namespace NextApps\VerificationCode\Tests;
 
-use Illuminate\Support\Str;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Support\Testing\Fakes\NotificationFake;
 use NextApps\VerificationCode\Models\VerificationCode;
-use NextApps\VerificationCode\Exceptions\InvalidClassException;
 use NextApps\VerificationCode\Notifications\VerificationCodeCreated;
 use NextApps\VerificationCode\VerificationCode as VerificationCodeFacade;
-use NextApps\VerificationCode\Notifications\VerificationCodeCreatedInterface;
 use RuntimeException;
 
 class SendVerificationCodeTest extends TestCase
