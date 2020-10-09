@@ -3,31 +3,32 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Default length
+    | Code Length
     |--------------------------------------------------------------------------
     |
     | This option defines the length of the generated verification codes.
-    | The default is set to 6.
     |
     */
-    'length' => null,
+    'length' => 6,
 
     /*
     |--------------------------------------------------------------------------
-    | Code type
+    | Code Type
     |--------------------------------------------------------------------------
     |
     | This option defines the character set for the verification codes.
-    | The default character set is set 'numeric'.
     |
-    | Supported: 'numeric', 'alphabetical', 'alphanumeric'
+    | The supported code types are:
+    |   - \NextApps\VerificationCode\CodeTypes\Numeric
+    |   - \NextApps\VerificationCode\CodeTypes\Alphabetical
+    |   - \NextApps\VerificationCode\CodeTypes\Alphanumeric
     |
     */
-    'type' => null,
+    'type' => \NextApps\VerificationCode\CodeTypes\Numeric::class,
 
     /*
     |--------------------------------------------------------------------------
-    | Exclude characters from character set
+    | Excluded Characters
     |--------------------------------------------------------------------------
     |
     | This option makes it possible to exclude specific characters from
@@ -36,7 +37,7 @@ return [
     | Example: ['0','A','Z']
     |
     */
-    'exclude_characters' => [],
+    'excluded_characters' => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -46,19 +47,18 @@ return [
     | The amount of hours it takes for a verification code to expire.
     |
     */
-    'expire_hours' => 1,
+    'expiry_hours' => 1,
 
     /*
     |--------------------------------------------------------------------------
-    | Custom notification
+    | Custom Notification
     |--------------------------------------------------------------------------
     |
     | This class contains the notification sent to users upon creation
     | of the verification code.
     |
-    | It should implement the following interfaces:
-    | - Illuminate\Contracts\Queue\ShouldQueue
-    | - NextApps\VerificationCode\Notifications\VerificationCodeCreatedInterface
+    | It should implement the interface:
+    |   - \NextApps\VerificationCode\Notifications\VerificationCodeCreatedInterface
     |
     */
     'notification' => \NextApps\VerificationCode\Notifications\VerificationCodeCreated::class,
@@ -69,18 +69,16 @@ return [
     |--------------------------------------------------------------------------
     |
     | The queue on which the verification code notification is pushed on.
-    | If this option is set to 'null' the notification will not be
-    | pushed on a queue and sent directly to the user.
     |
     */
     'queue' => null,
 
     /*
     |--------------------------------------------------------------------------
-    | Test verification email
+    | Test Verifiables
     |--------------------------------------------------------------------------
     |
-    | This option enables it to bypass verification using an email.
+    | This option enables you to skip verification for certain verifiables.
     |
     | Example: ['person@example.com','otherperson@example.com']
     |
@@ -89,10 +87,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Test verification code
+    | Test Verification Code
     |--------------------------------------------------------------------------
     |
-    | This option enables it to bypass verification using a custom code.
+    | This option enables the test verifiables to bypass verification using
+    | this test code.
     |
     */
     'test_code' => null,

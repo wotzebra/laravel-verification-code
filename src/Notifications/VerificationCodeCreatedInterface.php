@@ -5,7 +5,7 @@ namespace NextApps\VerificationCode\Notifications;
 interface VerificationCodeCreatedInterface
 {
     /**
-     * Create a new message instance.
+     * Create a new notification instance.
      *
      * @param string $code
      */

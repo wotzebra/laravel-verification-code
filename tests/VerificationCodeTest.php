@@ -2,13 +2,13 @@
 
 namespace NextApps\VerificationCode\Tests;
 
-use Illuminate\Notifications\AnonymousNotifiable;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
-use NextApps\VerificationCode\Exceptions\InvalidClassException;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Notifications\AnonymousNotifiable;
 use NextApps\VerificationCode\Models\VerificationCode;
+use NextApps\VerificationCode\Exceptions\InvalidClassException;
 use NextApps\VerificationCode\Notifications\VerificationCodeCreated;
-use NextApps\VerificationCode\Notifications\WrongNotification;
 use NextApps\VerificationCode\VerificationCode as VerificationCodeFacade;
 
 class VerificationCodeTest extends TestCase
@@ -27,7 +27,8 @@ class VerificationCodeTest extends TestCase
             VerificationCodeCreated::class,
             function ($notification, $channels, $notifiable) use ($email) {
                 return $notifiable->routes['mail'] === $email;
-            });
+            }
+        );
     }
 
     /** @test */
@@ -47,7 +48,8 @@ class VerificationCodeTest extends TestCase
             VerificationCodeCreated::class,
             function ($notification, $channels, $notifiable) use ($email, $queue) {
                 return $notifiable->routes['mail'] === $email && $notification->queue === $queue;
-            });
+            }
+        );
     }
 
     /** @test */
@@ -64,9 +66,10 @@ class VerificationCodeTest extends TestCase
         Notification::assertSentTo(
             new AnonymousNotifiable,
             VerificationCodeCreated::class,
-                function ($notification, $channels, $notifiable) use ($email) {
-                    return $notifiable->routes['mail'] === $email && $notification->queue === null;
-                });
+            function ($notification, $channels, $notifiable) use ($email) {
+                return $notifiable->routes['mail'] === $email && $notification->queue === null;
+            }
+        );
     }
 
     /** @test */
@@ -190,7 +193,8 @@ class VerificationCodeTest extends TestCase
             VerificationCodeCreated::class,
             function ($notification, $channels, $notifiable) use ($email) {
                 return $notifiable->routes['mail'] === $email;
-            });
+            }
+        );
     }
 
     /** @test */
@@ -204,4 +208,8 @@ class VerificationCodeTest extends TestCase
 
         VerificationCodeFacade::send($email);
     }
+}
+
+class WrongNotification extends Notification
+{
 }
