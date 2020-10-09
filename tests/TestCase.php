@@ -2,7 +2,6 @@
 
 namespace NextApps\VerificationCode\Tests;
 
-use Illuminate\Support\Facades\Queue;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Notification;
 use Orchestra\Testbench\TestCase as Orchestra;
@@ -22,11 +21,9 @@ abstract class TestCase extends Orchestra
         parent::setUp();
 
         $this->setUpDatabase();
-
         $this->withFactories(__DIR__.'/../database/factories');
 
         Notification::fake();
-        Queue::fake();
     }
 
     /**

@@ -36,7 +36,7 @@ class CodeGenerator
         $length = config('verification-code.length');
 
         if (! is_int($length)) {
-            throw new RuntimeException('The length of verification code must be an integer');
+            throw new RuntimeException('The code length must be an integer');
         }
 
         return $length;
@@ -53,7 +53,7 @@ class CodeGenerator
     {
         $codeType = config('verification-code.type');
 
-        if ($codeType instanceof CodeType) {
+        if (! is_subclass_of($codeType, CodeType::class)) {
             throw new RuntimeException('The code type must extend the `\NextApps\VerificationCode\CodeTypes\CodeType` class');
         }
 
