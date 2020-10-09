@@ -3,117 +3,94 @@
 namespace NextApps\VerificationCode\Tests\Models;
 
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use NextApps\VerificationCode\Models\VerificationCode;
+use NextApps\VerificationCode\Support\CodeGenerator;
 use NextApps\VerificationCode\Tests\TestCase;
 
 class VerificationCodeTest extends TestCase
 {
     /** @test */
-    public function it_returns_a_valid_code_using_the_create_for_verifiable_method()
+    public function it_creates_and_returns_code()
     {
-        $verifiable = $this->faker->randomElement([$this->faker->safeEmail]);
+        $code = VerificationCode::createFor('taylor@laravel.com');
 
-        $code = VerificationCode::createFor($verifiable);
-
-        $dbVerificationCode = VerificationCode::where('verifiable', $verifiable)->first();
-
-        $this->assertNotNull($dbVerificationCode);
+        $this->assertNotNull($dbVerificationCode = VerificationCode::first());
+        $this->assertEquals('taylor@laravel.com', $dbVerificationCode->verifiable);
         $this->assertTrue(Hash::check($code, $dbVerificationCode->code));
-        $this->assertEquals(
-            0,
-            now()->addHours(config('verification.expire_hours'))->diffInMinutes($dbVerificationCode->expires_at)
-        );
+        $this->assertNotNull($dbVerificationCode->expires_at);
     }
 
     /** @test */
-    public function it_returns_a_code_using_the_from_verifiable_method()
+    public function it_sets_expiration_date_based_on_config()
     {
-        $verifiable = $this->faker->randomElement([$this->faker->safeEmail]);
+        config()->set('verification-code.expire_hours', 6);
 
-        $verificationCode = factory(VerificationCode::class)->create([
-            'verifiable' => $verifiable,
-        ]);
+        VerificationCode::createFor('taylor@laravel.com');
 
-        factory(VerificationCode::class, 3)->create();
+        $dbVerificationCode = VerificationCode::first();
 
-        $this->assertEquals($verificationCode->id, VerificationCode::from($verifiable)->id);
+        $this->assertNotNull($dbVerificationCode->expires_at);
+        $this->assertEquals(0, $dbVerificationCode->expires_at->diffInMinutes(now()->addHours(6)));
     }
 
     /** @test */
-    public function it_returns_a_valid_code_when_excluded_characters_is_not_an_array()
+    public function it_creates_code_using_code_generator()
     {
-        config()->set('verification-code.exclude_characters', Str::random());
+        $this->mock(CodeGenerator::class, function ($mock) {
+            $mock->shouldReceive('generate')->andReturn('ABC123');
+        });
 
-        $verifiable = $this->faker->randomElement([$this->faker->safeEmail]);
+        VerificationCode::createFor('taylor@laravel.com');
 
-        $code = VerificationCode::createFor($verifiable);
-
-        $dbVerificationCode = VerificationCode::where('verifiable', $verifiable)->first();
-
-        $this->assertNotNull($dbVerificationCode);
-        $this->assertTrue(Hash::check($code, $dbVerificationCode->code));
-        $this->assertEquals(
-            0,
-            now()->addHours(config('verification.expire_hours'))->diffInMinutes($dbVerificationCode->expires_at)
-        );
+        $this->assertTrue(Hash::check('ABC123', VerificationCode::first()->code));
     }
 
     /** @test */
     public function it_deletes_old_codes_of_verifiable_when_creating()
     {
-        $verifiable = $this->faker->randomElement([$this->faker->safeEmail]);
+        $otherVerificationCode = factory(VerificationCode::class)->create(['verifiable' => 'dries@laravel.com']);
+        $oldVerificationCode = factory(VerificationCode::class)->create(['verifiable' => 'taylor@laravel.com']);
 
-        $oldVerificationCode = factory(VerificationCode::class)->create([
-            'verifiable' => $verifiable,
-        ]);
-
-        $verificationCode = factory(VerificationCode::class)->create([
-            'verifiable' => $verifiable,
-        ]);
+        factory(VerificationCode::class)->create(['verifiable' => 'taylor@laravel.com']);
 
         $this->assertNull(VerificationCode::find($oldVerificationCode->id));
+        $this->assertNotNull(VerificationCode::find($otherVerificationCode->id));
     }
 
     /** @test */
-    public function it_sets_expires_at_if_not_set_after_create()
+    public function it_sets_expiration_date_if_not_set_on_create()
     {
-        $verificationCode = factory(VerificationCode::class)->create([
-            'expires_at' => null,
-        ]);
+        config()->set('verification-code.expire_hours', 4);
 
-        $this->assertEquals(
-            0,
-            now()->addHours(config('verification.expire_hours'))->diffInMinutes($verificationCode->expires_at)
-        );
+        $verificationCode = factory(VerificationCode::class)->create(['expires_at' => null]);
+
+        $this->assertNotNull($verificationCode->expires_at);
+        $this->assertEquals(0, $verificationCode->expires_at->diffInMinutes(now()->addHours(4)));
     }
 
     /** @test */
-    public function it_does_not_set_expires_at_if_set_after_create()
+    public function it_does_not_set_expiration_date_if_already_set_on_create()
     {
-        $verificationCode = factory(VerificationCode::class)->create([
-            'expires_at' => ($expiresAt = now()->addDays(1000)),
-        ]);
+        config()->set('verification.expire_hours', 4);
 
-        $this->assertEquals(0, $expiresAt->diffInMinutes($verificationCode->expires_at));
+        $verificationCode = factory(VerificationCode::class)->create(['expires_at' => now()->addDays(1000)]);
+
+        $this->assertNotNull($verificationCode->expires_at);
+        $this->assertNotEquals(0, $verificationCode->expires_at->diffInMinutes(now()->addHours(4)));
     }
 
     /** @test */
-    public function it_hashes_code_if_not_hashed_yet_after_create()
+    public function it_hashes_code_if_not_hashed_yet_on_create()
     {
-        $verificationCode = factory(VerificationCode::class)->create([
-            'code' => ($code = Str::random()),
-        ]);
+        $verificationCode = factory(VerificationCode::class)->create(['code' => 'ABC123']);
 
-        $this->assertTrue(Hash::check($code, $verificationCode->code));
+        $this->assertTrue(Hash::check('ABC123', $verificationCode->code));
     }
 
     /** @test */
-    public function it_does_not_hash_code_if_hashed_after_create()
+    public function it_does_not_hash_code_if_already_hashed_on_create()
     {
-        $verificationCode = factory(VerificationCode::class)->create([
-            'code' => ($hashedCode = Hash::make(Str::random())),
-        ]);
+        $verificationCode = factory(VerificationCode::class)->create(['code' => $hashedCode = Hash::make('ABC123')]);
 
         $this->assertEquals($hashedCode, $verificationCode->code);
     }

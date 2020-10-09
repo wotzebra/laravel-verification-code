@@ -2,11 +2,11 @@
 
 namespace NextApps\VerificationCode\Tests;
 
-use Dotenv\Dotenv;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Queue;
 use Orchestra\Testbench\TestCase as Orchestra;
+use NextApps\VerificationCode\VerificationCodeServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
@@ -19,29 +19,14 @@ abstract class TestCase extends Orchestra
      */
     protected function setUp(): void
     {
-        $this->loadEnvironmentVariables();
-
         parent::setUp();
 
-        Notification::fake();
-        Queue::fake();
+        $this->setUpDatabase();
 
         $this->withFactories(__DIR__.'/../database/factories');
 
-        include_once __DIR__.'/../database/migrations/create_verification_codes_table.php.stub';
-
-        (new \CreateVerificationCodesTable)->up();
-    }
-
-    protected function loadEnvironmentVariables()
-    {
-        if (! file_exists(__DIR__.'/../.env')) {
-            return;
-        }
-
-        $dotenv = Dotenv::create(__DIR__.'/..');
-
-        $dotenv->load();
+        Notification::fake();
+        Queue::fake();
     }
 
     /**
@@ -54,49 +39,19 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            \NextApps\VerificationCode\VerificationCodeServiceProvider::class,
+            VerificationCodeServiceProvider::class,
         ];
     }
 
     /**
-     * Load package alias.
+     * Set up the database.
      *
-     * @param  \Illuminate\Foundation\Application $app
-     *
-     * @return array
-     */
-    protected function getPackageAliases($app)
-    {
-        return [
-            'VerificationCode' =>  \NextApps\VerificationCode\VerificationCodeFacade::class,
-        ];
-    }
-
-    /**
-     * Define environment setup.
-     *
-     * @param  \Illuminate\Foundation\Application  $app
      * @return void
      */
-    protected function getEnvironmentSetUp($app)
+    protected function setUpDatabase()
     {
-        // Setup default database to use sqlite :memory:
-        $app['config']->set('database.default', 'testbench');
-        $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
-            'database' => ':memory:',
-            'prefix'   => '',
-        ]);
-    }
+        include_once __DIR__.'/../database/migrations/create_verification_codes_table.php.stub';
 
-    /**
-     * Clears Laravel Cache.
-     */
-    protected function clearCache()
-    {
-        $commands = ['clear-compiled', 'cache:clear', 'view:clear', 'config:clear', 'route:clear'];
-        foreach ($commands as $command) {
-            \Illuminate\Support\Facades\Artisan::call($command);
-        }
+        (new \CreateVerificationCodesTable)->up();
     }
 }

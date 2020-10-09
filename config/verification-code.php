@@ -32,12 +32,12 @@ return [
     |--------------------------------------------------------------------------
     |
     | This option makes it possible to exclude specific characters from
-    | the selected or default character set.
+    | the selected code type's characters.
     |
-    | Example: ['0','A','Z']
+    | Example: '0AZ'
     |
     */
-    'excluded_characters' => [],
+    'excluded_characters' => '',
 
     /*
     |--------------------------------------------------------------------------

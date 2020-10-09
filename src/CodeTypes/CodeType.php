@@ -11,7 +11,7 @@ abstract class CodeType
      */
     public function getAllowedCharacters()
     {
-        $excludedCharacters = config('verification-code.excluded_characters', []);
+        $excludedCharacters = str_split(config('verification-code.excluded_characters', ''));
 
         return str_replace($excludedCharacters, '', $this->getCharacters());
     }

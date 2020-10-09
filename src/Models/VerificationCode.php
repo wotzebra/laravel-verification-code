@@ -50,7 +50,7 @@ class VerificationCode extends Model
             self::query()->where('verifiable', $verificationCode->verifiable)->delete();
 
             if ($verificationCode->expires_at === null) {
-                $verificationCode->expires_at = now()->addHours(config('verification-code.expire_hours'));
+                $verificationCode->expires_at = now()->addHours(config('verification-code.expire_hours', 0));
             }
 
             if (Hash::needsRehash($verificationCode->code)) {

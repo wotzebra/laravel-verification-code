@@ -91,6 +91,10 @@ class VerificationCodeManager
      */
     protected function isTestCode(string $code)
     {
+        if (empty(config('verification-code.test_code'))) {
+            return false;
+        }
+
         return $code === config('verification-code.test_code');
     }
 

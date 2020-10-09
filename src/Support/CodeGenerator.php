@@ -53,8 +53,8 @@ class CodeGenerator
     {
         $codeType = config('verification-code.type');
 
-        if (! class_exists($codeType) || is_subclass_of($codeType, CodeType::class)) {
-            throw new RuntimeException('The code type must a class that extends `\NextApps\VerificationCode\CodeTypes\CodeType`');
+        if ($codeType instanceof CodeType) {
+            throw new RuntimeException('The code type must extend the `\NextApps\VerificationCode\CodeTypes\CodeType` class');
         }
 
         return app($codeType)->getAllowedCharacters();
