@@ -46,14 +46,24 @@ class VerificationCodeTest extends TestCase
     }
 
     /** @test */
-    public function it_deletes_old_codes_of_verifiable_when_creating()
+    public function it_deletes_old_codes_of_verifiable_if_max_codes_reached()
     {
-        $otherVerificationCode = VerificationCode::create(['code' => 'ABC123', 'verifiable' => 'dries@laravel.com']);
-        $oldVerificationCode = VerificationCode::create(['code' => 'ABC123', 'verifiable' => 'taylor@laravel.com']);
+        config()->set('verification-code.max_per_verifiable', 3);
+
+        $oldestVerificationCode = VerificationCode::create(['code' => 'CODE3', 'verifiable' => 'taylor@laravel.com', 'expires_at' => now()->addMinutes(15)]);
+        $recentVerificationCode = VerificationCode::create(['code' => 'CODE1', 'verifiable' => 'taylor@laravel.com', 'expires_at' => now()->addHour(60)]);
+        $olderVerificationCode = VerificationCode::create(['code' => 'CODE2', 'verifiable' => 'taylor@laravel.com', 'expires_at' => now()->addMinutes(30)]);
+
+        $otherVerificationCode = VerificationCode::create(['code' => 'OTHERCODE', 'verifiable' => 'dries@laravel.com']);
 
         VerificationCode::create(['code' => 'ABC123', 'verifiable' => 'taylor@laravel.com']);
 
-        $this->assertNull(VerificationCode::find($oldVerificationCode->id));
+        $this->assertEquals(3, VerificationCode::where('verifiable', 'taylor@laravel.com')->count());
+
+        $this->assertNotNull(VerificationCode::find($recentVerificationCode->id));
+        $this->assertNotNull(VerificationCode::find($olderVerificationCode->id));
+        $this->assertNull(VerificationCode::find($oldestVerificationCode->id));
+
         $this->assertNotNull(VerificationCode::find($otherVerificationCode->id));
     }
 
