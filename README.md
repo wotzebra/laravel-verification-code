@@ -63,6 +63,11 @@ You sometimes may want to exclude one or more characters from the selected chara
 ### Expire hours
 A verification code is only valid for a certain amount of time. You can define after how many hours a verification code will expire.
 
+### Max codes per verifiable
+
+By default, only one verification code can be active per verifiable. If you want to allow multiple active codes per verifiable, then you can
+change this setting to a different number (or to `null` if you want unlimited codes per verifiable).
+
 ### Custom Notification
 If you want to use a custom notification to send the verification code, you can create your own notification class which should extend the `VerificationCodeCreatedInterface`. Make sure you don't forget to pass the verification code to the mail.
 
