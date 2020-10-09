@@ -6,7 +6,7 @@ return [
     | Code Length
     |--------------------------------------------------------------------------
     |
-    | This option defines the length of the generated verification codes.
+    | This value defines the length of the generated verification codes.
     |
     */
     'length' => 6,
@@ -16,7 +16,8 @@ return [
     | Code Type
     |--------------------------------------------------------------------------
     |
-    | This option defines the character set for the verification codes.
+    | This class defines the characterset that will be used to generate the
+    | verification codes.
     |
     | The supported code types are:
     |   - \NextApps\VerificationCode\CodeTypes\Numeric
@@ -32,7 +33,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This option makes it possible to exclude specific characters from
-    | the selected code type's characters.
+    | the characterset that is determined by the selected code type.
     |
     | Example: '0AZ'
     |
@@ -44,7 +45,8 @@ return [
     | Expiry time
     |--------------------------------------------------------------------------
     |
-    | The amount of hours it takes for a verification code to expire.
+    | A verification code is only valid for a certain amount of time. Here
+    | you define after how many hours a verification code will expire.
     |
     */
     'expiry_hours' => 1,
@@ -54,8 +56,8 @@ return [
     | Custom Notification
     |--------------------------------------------------------------------------
     |
-    | This class contains the notification sent to users upon creation
-    | of the verification code.
+    | Here you can customize the notification class that will be used to sent
+    | a verification code.
     |
     | It should implement the interface:
     |   - \NextApps\VerificationCode\Notifications\VerificationCodeCreatedInterface
@@ -68,7 +70,8 @@ return [
     | Queue
     |--------------------------------------------------------------------------
     |
-    | The queue on which the verification code notification is pushed on.
+    | If your notification is queueable, you can here define the queue that
+    | will be used for the notification.
     |
     */
     'queue' => null,
