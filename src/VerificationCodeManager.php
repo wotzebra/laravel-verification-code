@@ -52,7 +52,7 @@ class VerificationCodeManager
             return $this->isTestCode($code);
         }
 
-        $verificationCode = VerificationCode::from($verifiable)->first();
+        $verificationCode = VerificationCode::for($verifiable)->first();
 
         if (optional($verificationCode)->expired ?? true) {
             return false;

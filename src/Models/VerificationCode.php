@@ -47,7 +47,7 @@ class VerificationCode extends Model
         parent::boot();
 
         static::creating(function ($verificationCode) {
-            self::query()->where('verifiable', $verificationCode->verifiable)->delete();
+            VerificationCode::for($verificationCode->verifiable)->delete();
 
             if ($verificationCode->expires_at === null) {
                 $verificationCode->expires_at = now()->addHours(config('verification-code.expire_hours', 0));
@@ -78,7 +78,7 @@ class VerificationCode extends Model
      */
     public static function createFor(string $verifiable)
     {
-        static::create([
+        VerificationCode::create([
             'code' => $code = app(CodeGenerator::class)->generate(),
             'verifiable' => $verifiable,
         ]);
@@ -87,14 +87,14 @@ class VerificationCode extends Model
     }
 
     /**
-     * Scope a query to only include verification codes from the provided verifiable.
+     * Scope a query to only include verification codes for the provided verifiable.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param string $verifiable
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeFrom($query, string $verifiable)
+    public function scopeFor($query, string $verifiable)
     {
         return $query->where('verifiable', $verifiable);
     }
