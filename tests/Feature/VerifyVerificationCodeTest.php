@@ -11,7 +11,7 @@ class VerifyVerificationCodeTest extends TestCase
     /** @test */
     public function it_returns_true_if_code_is_valid_for_verifiable()
     {
-        factory(VerificationCode::class)->create([
+        VerificationCode::create([
             'code' => 'ABC123',
             'verifiable' => 'taylor@laravel.com',
         ]);
@@ -22,7 +22,7 @@ class VerifyVerificationCodeTest extends TestCase
     /** @test */
     public function it_returns_false_if_code_is_invalid_for_verifiable()
     {
-        factory(VerificationCode::class)->create([
+        VerificationCode::create([
             'code' => 'ABC123',
             'verifiable' => 'taylor@laravel.com',
         ]);
@@ -33,7 +33,7 @@ class VerifyVerificationCodeTest extends TestCase
     /** @test */
     public function it_returns_false_if_code_is_valid_for_verifiable_but_has_expired()
     {
-        factory(VerificationCode::class)->create([
+        VerificationCode::create([
             'code' => 'ABC123',
             'verifiable' => 'taylor@laravel.com',
             'expires_at' => now()->subHour(),
@@ -45,7 +45,7 @@ class VerifyVerificationCodeTest extends TestCase
     /** @test */
     public function it_deletes_code_if_used_for_verification()
     {
-        $verificationCode = factory(VerificationCode::class)->create([
+        $verificationCode = VerificationCode::create([
             'code' => 'ABC123',
             'verifiable' => 'taylor@laravel.com',
         ]);

@@ -76,7 +76,7 @@ class SendVerificationCodeTest extends TestCase
     /** @test */
     public function it_deletes_old_code_of_verifiable_on_send()
     {
-        $oldVerificationCode = factory(VerificationCode::class)->create(['verifiable' => 'taylor@laravel.com']);
+        $oldVerificationCode = VerificationCode::create(['code' => 'ABC123', 'verifiable' => 'taylor@laravel.com']);
 
         VerificationCodeFacade::send('taylor@laravel.com');
 

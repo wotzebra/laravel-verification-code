@@ -48,10 +48,10 @@ class VerificationCodeTest extends TestCase
     /** @test */
     public function it_deletes_old_codes_of_verifiable_when_creating()
     {
-        $otherVerificationCode = factory(VerificationCode::class)->create(['verifiable' => 'dries@laravel.com']);
-        $oldVerificationCode = factory(VerificationCode::class)->create(['verifiable' => 'taylor@laravel.com']);
+        $otherVerificationCode = VerificationCode::create(['code' => 'ABC123', 'verifiable' => 'dries@laravel.com']);
+        $oldVerificationCode = VerificationCode::create(['code' => 'ABC123', 'verifiable' => 'taylor@laravel.com']);
 
-        factory(VerificationCode::class)->create(['verifiable' => 'taylor@laravel.com']);
+        VerificationCode::create(['code' => 'ABC123', 'verifiable' => 'taylor@laravel.com']);
 
         $this->assertNull(VerificationCode::find($oldVerificationCode->id));
         $this->assertNotNull(VerificationCode::find($otherVerificationCode->id));
@@ -62,7 +62,11 @@ class VerificationCodeTest extends TestCase
     {
         config()->set('verification-code.expire_hours', 4);
 
-        $verificationCode = factory(VerificationCode::class)->create(['expires_at' => null]);
+        $verificationCode = VerificationCode::create([
+            'code' => 'ABC123',
+            'verifiable' => 'taylor@laravel.com',
+            'expires_at' => null,
+        ]);
 
         $this->assertNotNull($verificationCode->expires_at);
         $this->assertEquals(0, $verificationCode->expires_at->diffInMinutes(now()->addHours(4)));
@@ -73,7 +77,11 @@ class VerificationCodeTest extends TestCase
     {
         config()->set('verification.expire_hours', 4);
 
-        $verificationCode = factory(VerificationCode::class)->create(['expires_at' => now()->addDays(1000)]);
+        $verificationCode = VerificationCode::create([
+            'code' => 'ABC123',
+            'verifiable' => 'taylor@laravel.com',
+            'expires_at' => now()->addDays(1000)
+        ]);
 
         $this->assertNotNull($verificationCode->expires_at);
         $this->assertNotEquals(0, $verificationCode->expires_at->diffInMinutes(now()->addHours(4)));
@@ -82,7 +90,10 @@ class VerificationCodeTest extends TestCase
     /** @test */
     public function it_hashes_code_if_not_hashed_yet_on_create()
     {
-        $verificationCode = factory(VerificationCode::class)->create(['code' => 'ABC123']);
+        $verificationCode = VerificationCode::create([
+            'code' => 'ABC123',
+            'verifiable' => 'taylor@laravel.com',
+        ]);
 
         $this->assertTrue(Hash::check('ABC123', $verificationCode->code));
     }
@@ -90,7 +101,10 @@ class VerificationCodeTest extends TestCase
     /** @test */
     public function it_does_not_hash_code_if_already_hashed_on_create()
     {
-        $verificationCode = factory(VerificationCode::class)->create(['code' => $hashedCode = Hash::make('ABC123')]);
+        $verificationCode = VerificationCode::create([
+            'code' => $hashedCode = Hash::make('ABC123'),
+            'verifiable' => 'taylor@laravel.com',
+        ]);
 
         $this->assertEquals($hashedCode, $verificationCode->code);
     }
