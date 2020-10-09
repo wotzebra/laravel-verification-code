@@ -80,7 +80,7 @@ class VerificationCodeTest extends TestCase
         $verificationCode = VerificationCode::create([
             'code' => 'ABC123',
             'verifiable' => 'taylor@laravel.com',
-            'expires_at' => now()->addDays(1000)
+            'expires_at' => now()->addDays(1000),
         ]);
 
         $this->assertNotNull($verificationCode->expires_at);
