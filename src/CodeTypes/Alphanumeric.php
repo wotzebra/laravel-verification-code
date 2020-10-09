@@ -7,7 +7,7 @@ class Alphanumeric extends CodeType
     /**
      * Get the characters of the code type.
      *
-     * @return array
+     * @return string
      */
     public function getCharacters()
     {

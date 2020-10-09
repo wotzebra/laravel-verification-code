@@ -49,7 +49,7 @@ return [
     | you define after how many hours a verification code will expire.
     |
     */
-    'expiry_hours' => 1,
+    'expire_hours' => 1,
 
     /*
     |--------------------------------------------------------------------------

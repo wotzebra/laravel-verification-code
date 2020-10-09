@@ -44,9 +44,9 @@ class VerificationCodeCreated extends Notification implements ShouldQueue, Verif
     public function toMail()
     {
         return (new MailMessage)
-            ->subject(__('Your login code'))
+            ->subject(__('Your verification code'))
             ->greeting(__('Hello!'))
-            ->line(__('Your login code: :code', ['code' => $this->code]))
+            ->line(__('Your verification code: :code', ['code' => $this->code]))
             ->line(__('Kind regards'));
     }
 }
