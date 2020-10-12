@@ -51,14 +51,8 @@ If the verification code is expired or does not match the user's email address, 
 ### Length
 This value defines the length of every generated verification code.
 
-### Type
-The code type determines the characterset that will be used to generate verification codes. There are 3 built-in code-types:
-- Numeric (`\NextApps\VerificationCode\CodeTypes\Numeric`)
-- Alphabetical (`\NextApps\VerificationCode\CodeTypes\Alphabetical`)
-- Alphanumeric (`\NextApps\VerificationCode\CodeTypes\Alphanumeric`)
-
-### Excluded characters
-You sometimes may want to exclude one or more characters from the selected characterset. This can be done simply by adding the character(s) to the `excluded_characters` array in the config.
+### Characters
+You can define which characters are used to generate a verification code. By default, certain characters are excluded (0, O, I, L) because they look to similar.
 
 ### Expire hours
 A verification code is only valid for a certain amount of time. You can define after how many hours a verification code will expire.
