@@ -2,7 +2,6 @@
 
 namespace NextApps\VerificationCode\Support;
 
-use NextApps\VerificationCode\CodeTypes\CodeType;
 use RuntimeException;
 
 class CodeGenerator
@@ -51,12 +50,12 @@ class CodeGenerator
      */
     protected function getCharacters()
     {
-        $codeType = config('verification-code.type');
+        $characters = config('verification-code.characters');
 
-        if (! is_subclass_of($codeType, CodeType::class)) {
-            throw new RuntimeException('The code type must extend the `\NextApps\VerificationCode\CodeTypes\CodeType` class');
+        if (! is_string($characters) || strlen($characters) <= 0) {
+            throw new RuntimeException('The character list must contain at least 1 character');
         }
 
-        return app($codeType)->getAllowedCharacters();
+        return $characters;
     }
 }

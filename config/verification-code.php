@@ -13,32 +13,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Code Type
+    | Characters
     |--------------------------------------------------------------------------
     |
-    | This class defines the characterset that will be used to generate the
-    | verification codes.
-    |
-    | The supported code types are:
-    |   - \NextApps\VerificationCode\CodeTypes\Numeric
-    |   - \NextApps\VerificationCode\CodeTypes\Alphabetical
-    |   - \NextApps\VerificationCode\CodeTypes\Alphanumeric
+    | Here you define which characters can be used to generate a verification
+    | code. By default, certain characters are excluded (0, O, I, L) because
+    | they look to similar.
     |
     */
-    'type' => \NextApps\VerificationCode\CodeTypes\Numeric::class,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Excluded Characters
-    |--------------------------------------------------------------------------
-    |
-    | This option makes it possible to exclude specific characters from
-    | the characterset that is determined by the selected code type.
-    |
-    | Example: '0AZ'
-    |
-    */
-    'excluded_characters' => '',
+    'characters' => '123456789ABCDEFGHJKMNPQRSTUVWXYZ',
 
     /*
     |--------------------------------------------------------------------------

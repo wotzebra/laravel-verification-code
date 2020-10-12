@@ -2,7 +2,6 @@
 
 namespace NextApps\VerificationCode\Tests\Support;
 
-use NextApps\VerificationCode\CodeTypes\CodeType;
 use NextApps\VerificationCode\Support\CodeGenerator;
 use NextApps\VerificationCode\Tests\TestCase;
 use RuntimeException;
@@ -20,15 +19,15 @@ class CodeGeneratorTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_code_using_type_from_config()
+    public function it_generates_code_using_characters_from_config()
     {
-        config()->set('verification-code.type', RandomCodeType::class);
+        config()->set('verification-code.characters', 'abc123');
 
-        $this->mock(RandomCodeType::class, function ($mock) {
-            $mock->shouldReceive('getAllowedCharacters')->andReturn('abc123');
-        });
+        $code = app(CodeGenerator::class)->generate();
 
-        app(CodeGenerator::class)->generate();
+        foreach (str_split($code) as $character) {
+            $this->assertTrue(str_contains('abc123', $character));
+        }
     }
 
     /** @test */
@@ -43,25 +42,13 @@ class CodeGeneratorTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_exception_if_type_does_not_extend_abstract_class()
+    public function it_throws_exception_if_characters_is_empty_string()
     {
-        config()->set('verification-code.type', CodeTypeThatDoesNotExtendAbstractClass::class);
+        config()->set('verification-code.characters', '');
 
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('The code type must extend the `\NextApps\VerificationCode\CodeTypes\CodeType` class');
+        $this->expectExceptionMessage('The character list must be contain at least 1 character');
 
         app(CodeGenerator::class)->generate();
     }
-}
-
-class RandomCodeType extends CodeType
-{
-    public function getCharacters()
-    {
-        return 'abc123';
-    }
-}
-
-class CodeTypeThatDoesNotExtendAbstractClass
-{
 }
