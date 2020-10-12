@@ -2,6 +2,7 @@
 
 namespace NextApps\VerificationCode\Tests\Support;
 
+use Illuminate\Support\Str;
 use NextApps\VerificationCode\Support\CodeGenerator;
 use NextApps\VerificationCode\Tests\TestCase;
 use RuntimeException;
@@ -26,7 +27,7 @@ class CodeGeneratorTest extends TestCase
         $code = app(CodeGenerator::class)->generate();
 
         foreach (str_split($code) as $character) {
-            $this->assertTrue(str_contains('abc123', $character));
+            $this->assertTrue(Str::contains('abc123', $character));
         }
     }
 
@@ -47,7 +48,7 @@ class CodeGeneratorTest extends TestCase
         config()->set('verification-code.characters', '');
 
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('The character list must be contain at least 1 character');
+        $this->expectExceptionMessage('The character list must contain at least 1 character');
 
         app(CodeGenerator::class)->generate();
     }
