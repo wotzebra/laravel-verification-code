@@ -52,7 +52,7 @@ If the verification code is expired or does not match the user's email address, 
 This value defines the length of every generated verification code.
 
 ### Characters
-You can define which characters are used to generate a verification code. By default, certain characters are excluded (0, O, I, L) because they look to similar.
+You can define which characters are used to generate a verification code. By default, certain characters are excluded (0, O, I, L) because they look too similar.
 
 ### Expire hours
 A verification code is only valid for a certain amount of time. You can define after how many hours a verification code will expire.
