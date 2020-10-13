@@ -18,7 +18,7 @@ return [
     |
     | Here you define which characters can be used to generate a verification
     | code. By default, certain characters are excluded (0, O, I, L) because
-    | they look to similar.
+    | they look too similar.
     |
     */
     'characters' => '123456789ABCDEFGHJKMNPQRSTUVWXYZ',
