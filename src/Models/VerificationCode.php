@@ -4,13 +4,10 @@ namespace NextApps\VerificationCode\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
+use NextApps\VerificationCode\Support\CodeGenerator;
 
 class VerificationCode extends Model
 {
-    const NUMERIC = '0123456789';
-    const ALPHABETICAL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const ALPHANUMERIC = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
     /**
      * The attributes that are mass assignable.
      *
@@ -50,10 +47,10 @@ class VerificationCode extends Model
         parent::boot();
 
         static::creating(function ($verificationCode) {
-            self::query()->where('verifiable', $verificationCode->verifiable)->delete();
+            VerificationCode::for($verificationCode->verifiable)->delete();
 
             if ($verificationCode->expires_at === null) {
-                $verificationCode->expires_at = now()->addHours(config('verification-code.expire_hours'));
+                $verificationCode->expires_at = now()->addHours(config('verification-code.expire_hours', 0));
             }
 
             if (Hash::needsRehash($verificationCode->code)) {
@@ -81,10 +78,8 @@ class VerificationCode extends Model
      */
     public static function createFor(string $verifiable)
     {
-        $code = static::generateCode();
-
-        self::create([
-            'code' => $code,
+        VerificationCode::create([
+            'code' => $code = app(CodeGenerator::class)->generate(),
             'verifiable' => $verifiable,
         ]);
 
@@ -92,52 +87,15 @@ class VerificationCode extends Model
     }
 
     /**
-     * Find verification code for the verifiable.
+     * Scope a query to only include verification codes for the provided verifiable.
      *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param string $verifiable
      *
-     * @return self
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public static function from(string $verifiable)
+    public function scopeFor($query, string $verifiable)
     {
-        return self::query()->where('verifiable', $verifiable)->first();
-    }
-
-    /**
-     * Generate random code.
-     */
-    protected static function generateCode(): string
-    {
-        $length = config('verification-code.length');
-        $characterSet = static::getCharacterSet();
-
-        if (! is_int($length)) {
-            $length = 6;
-        }
-
-        $code = '';
-
-        for ($i = 0; $i < $length; $i++) {
-            $code .= $characterSet[rand(0, strlen($characterSet) - 1)];
-        }
-
-        return $code;
-    }
-
-    /**
-     * Get the character set.
-     */
-    protected static function getCharacterSet(): string
-    {
-        $type = config('verification-code.type');
-        $excludedCharacters = config('verification-code.exclude_characters');
-
-        $characterSet = defined($type) ? static::$type : static::NUMERIC;
-
-        if (is_array($excludedCharacters)) {
-            return str_replace($excludedCharacters, '', $characterSet);
-        }
-
-        return $characterSet;
+        return $query->where('verifiable', $verifiable);
     }
 }

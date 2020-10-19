@@ -49,27 +49,22 @@ If the verification code is expired or does not match the user's email address, 
 ## Config settings
 
 ### Length
-The length of the verification codes. The standard length for a verification code is `6`.
+This value defines the length of every generated verification code.
 
-### Type
-The character set the package will use to generate verification codes. The supported character sets are `numeric`, `alphabetical` and `alphanumeric`. The `numeric` character set is used by default.
-
-### Exclude characters
-You sometimes may want to exclude one or more characters from the selected or default character set. This can be done simply by adding the character(s) to the `exclude_characters` array in the config (e.g. `excluded_characters => ['0', '9']`, verification codes will be issued between 1 and 8).
+### Characters
+You can define which characters are used to generate a verification code. By default, certain characters are excluded (0, O, I, L) because they look too similar.
 
 ### Expire hours
-The amount of hours it takes for a verification code to expire. You're free to increase this in the config.
+A verification code is only valid for a certain amount of time. You can define after how many hours a verification code will expire.
 
 ### Custom Notification
 If you want to use a custom notification to send the verification code, you can create your own notification class which should extend the `VerificationCodeCreatedInterface`. Make sure you don't forget to pass the verification code to the mail.
 
-Lastly set the config value `notification` to the full path of your newly created notification.
-
 ### Queue
-In specific cases you may want to put the  verification code notifications on a queue. This can be done by defining the queue in the config (e.g. `queue => 'notifications'`).
+If your notification is queueable, you can  define the queue that will be used for the notification.
 
-### Test verifiables and test codes
-You sometimes may want to allow a user to log in immediately without letting them go through the verification code flow. To do this you can add their email to the `test_verifiables` array. You then need to define a `test_code`. The combination of the user's email and the test code will make it possible for the user to pass through.
+### Test verifiables and test code
+You sometimes may want to allow a user to log in immediately without letting them go through the verification code flow. To do this you can add the verifiable (e.g. email address) to the `test_verifiables` array. You then need to define a `test_code`. The combination of the verifiable and the test code will make it possible for the user to pass through.
 
 ## Testing
 You can run tests with:
@@ -89,6 +84,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 - [Evert Arnould](https://github.com/earnould)
 - [Günther Debrauwer](https://github.com/gdebrauwer)
+- [Philippe Damen](https://github.com/yinx)
 - [All Contributors](../../contributors)
 
 ## License

@@ -3,62 +3,47 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Default length
+    | Code Length
     |--------------------------------------------------------------------------
     |
-    | This option defines the length of the generated verification codes.
-    | The default is set to 6.
+    | This value defines the length of every generated verification code.
     |
     */
-    'length' => null,
+    'length' => 6,
 
     /*
     |--------------------------------------------------------------------------
-    | Code type
+    | Characters
     |--------------------------------------------------------------------------
     |
-    | This option defines the character set for the verification codes.
-    | The default character set is set 'numeric'.
-    |
-    | Supported: 'numeric', 'alphabetical', 'alphanumeric'
+    | Here you define which characters can be used to generate a verification
+    | code. By default, certain characters are excluded (0, O, I, L) because
+    | they look too similar.
     |
     */
-    'type' => null,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Exclude characters from character set
-    |--------------------------------------------------------------------------
-    |
-    | This option makes it possible to exclude specific characters from
-    | the selected or default character set.
-    |
-    | Example: ['0','A','Z']
-    |
-    */
-    'exclude_characters' => [],
+    'characters' => '123456789ABCDEFGHJKMNPQRSTUVWXYZ',
 
     /*
     |--------------------------------------------------------------------------
     | Expiry time
     |--------------------------------------------------------------------------
     |
-    | The amount of hours it takes for a verification code to expire.
+    | A verification code is only valid for a certain amount of time. Here
+    | you define after how many hours a verification code will expire.
     |
     */
     'expire_hours' => 1,
 
     /*
     |--------------------------------------------------------------------------
-    | Custom notification
+    | Custom Notification
     |--------------------------------------------------------------------------
     |
-    | This class contains the notification sent to users upon creation
-    | of the verification code.
+    | Here you can customize the notification class that will be used to sent
+    | a verification code.
     |
-    | It should implement the following interfaces:
-    | - Illuminate\Contracts\Queue\ShouldQueue
-    | - NextApps\VerificationCode\Notifications\VerificationCodeCreatedInterface
+    | It should implement the interface:
+    |   - \NextApps\VerificationCode\Notifications\VerificationCodeCreatedInterface
     |
     */
     'notification' => \NextApps\VerificationCode\Notifications\VerificationCodeCreated::class,
@@ -68,19 +53,18 @@ return [
     | Queue
     |--------------------------------------------------------------------------
     |
-    | The queue on which the verification code notification is pushed on.
-    | If this option is set to 'null' the notification will not be
-    | pushed on a queue and sent directly to the user.
+    | If your notification is queueable, you can here define the queue that
+    | will be used for the notification.
     |
     */
     'queue' => null,
 
     /*
     |--------------------------------------------------------------------------
-    | Test verification email
+    | Test Verifiables
     |--------------------------------------------------------------------------
     |
-    | This option enables it to bypass verification using an email.
+    | This option enables you to skip verification for certain verifiables.
     |
     | Example: ['person@example.com','otherperson@example.com']
     |
@@ -89,10 +73,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Test verification code
+    | Test Verification Code
     |--------------------------------------------------------------------------
     |
-    | This option enables it to bypass verification using a custom code.
+    | This option enables the test verifiables to bypass verification using
+    | this test code.
     |
     */
     'test_code' => null,
