@@ -59,9 +59,16 @@ class VerificationCode extends Model
         static::created(function ($verificationCode) {
             $maxCodes = config('verification-code.max_per_verifiable', 1);
 
-            if ($maxCodes !== null) {
-                VerificationCode::exceptRecentFor($verificationCode->verifiable, $maxCodes)->delete();
+            if ($maxCodes === null) {
+                return;
             }
+
+            VerificationCode::for($verificationCode->verifiable)
+                ->orderByDesc('expires_at')
+                ->orderByDesc('id')
+                ->skip($maxCodes)
+                ->take(PHP_INT_MAX)
+                ->delete();
         });
     }
 
@@ -103,29 +110,5 @@ class VerificationCode extends Model
     public function scopeFor($query, string $verifiable)
     {
         return $query->where('verifiable', $verifiable);
-    }
-
-    /**
-     * Scope a query to only include verification codes from the provided verifiable.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param string $verifiable
-     * @param int $amount
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeExceptRecentFor($query, string $verifiable, int $amount)
-    {
-        return $query
-            ->for($verifiable)
-            ->whereNotIn(
-                'id',
-                static::query()
-                    ->select('id')
-                    ->for($verifiable)
-                    ->orderByDesc('expires_at')
-                    ->orderByDesc('id')
-                    ->limit($amount)
-            );
     }
 }
