@@ -12,6 +12,8 @@ class CodeGeneratorTest extends TestCase
     /** @test */
     public function it_generates_code_using_length_from_config()
     {
+        dump(config('database.default'));
+
         config()->set('verification-code.length', 4);
 
         $code = app(CodeGenerator::class)->generate();
