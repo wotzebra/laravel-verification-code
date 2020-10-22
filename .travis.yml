@@ -28,7 +28,6 @@ matrix:
 
 before_script:
     - composer config discard-changes true
-    - cp .env.travis .env
     - mysql -e 'create database testing;'
 
 before_install:
@@ -42,8 +41,7 @@ install:
   - travis_retry composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction --no-suggest
 
 script:
-  - php artisan migrate
-  - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+  - vendor/bin/phpunit --configuration=phpunit.travis.xml.dist --coverage-text --coverage-clover=coverage.clover
 
 after_success:
   - if [[ $COVERAGE = 1 ]]; then php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover report; fi
