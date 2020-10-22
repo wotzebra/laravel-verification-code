@@ -63,12 +63,14 @@ class VerificationCode extends Model
                 return;
             }
 
-            VerificationCode::for($verificationCode->verifiable)
+            $oldVerificationCodeIds = VerificationCode::for($verificationCode->verifiable)
                 ->orderByDesc('expires_at')
                 ->orderByDesc('id')
                 ->skip($maxCodes)
                 ->take(PHP_INT_MAX)
-                ->delete();
+                ->pluck('id');
+
+            VerificationCode::whereIn('id', $oldVerificationCodeIds)->delete();
         });
     }
 

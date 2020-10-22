@@ -2,6 +2,7 @@
 
 namespace NextApps\VerificationCode\Tests;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Notification;
 use NextApps\VerificationCode\VerificationCodeServiceProvider;
@@ -9,7 +10,8 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {
-    use WithFaker;
+    use WithFaker,
+        DatabaseMigrations;
 
     /**
      * Setup the test environment.
