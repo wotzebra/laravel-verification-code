@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-verification-code` will be documented in this file
 
+## 0.3.2 - 2020-10-22
+
+- Fix deletion of old verification codes (again) ([#11](https://github.com/nextapps-be/laravel-verification-code/pull/11))
+
 ## 0.3.1 - 2020-10-20
 
 - Fix deletion of old verification codes ([#10](https://github.com/nextapps-be/laravel-verification-code/pull/10))
