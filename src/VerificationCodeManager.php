@@ -52,17 +52,19 @@ class VerificationCodeManager
             return $this->isTestCode($code);
         }
 
-        $verificationCode = VerificationCode::for($verifiable)->first();
+        $codeIsValid = VerificationCode::query()
+            ->for($verifiable)
+            ->notExpired()
+            ->cursor()
+            ->contains(function ($verificationCode) use ($code) {
+                return Hash::check($code, $verificationCode->code);
+            });
 
-        if (optional($verificationCode)->expired ?? true) {
+        if (! $codeIsValid) {
             return false;
         }
 
-        if (! Hash::check($code, $verificationCode->code)) {
-            return false;
-        }
-
-        $verificationCode->delete();
+        VerificationCode::for($verifiable)->delete();
 
         return true;
     }

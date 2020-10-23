@@ -92,4 +92,52 @@ class VerifyVerificationCodeTest extends TestCase
 
         $this->assertFalse(VerificationCodeFacade::verify('', 'taylor@laravel.com'));
     }
+
+    /** @test */
+    public function it_returns_true_if_code_matches_with_one_of_the_codes_for_verifiable()
+    {
+        config()->set('verification-code.max_per_verifiable', 3);
+
+        VerificationCode::create([
+            'code' => 'ABC123',
+            'verifiable' => 'taylor@laravel.com',
+        ]);
+
+        VerificationCode::create([
+            'code' => 'DEF456',
+            'verifiable' => 'taylor@laravel.com',
+        ]);
+
+        VerificationCode::create([
+            'code' => 'GHI789',
+            'verifiable' => 'taylor@laravel.com',
+        ]);
+
+        $this->assertTrue(VerificationCodeFacade::verify('DEF456', 'taylor@laravel.com'));
+        $this->assertEquals(0, VerificationCode::for('taylor@laravel.com')->count());
+    }
+
+    /** @test */
+    public function it_returns_false_if_code_matches_none_of_the_codes_for_verifiable()
+    {
+        config()->set('verification-code.max_per_verifiable', 3);
+
+        VerificationCode::create([
+            'code' => 'ABC123',
+            'verifiable' => 'taylor@laravel.com',
+        ]);
+
+        VerificationCode::create([
+            'code' => 'DEF456',
+            'verifiable' => 'taylor@laravel.com',
+        ]);
+
+        VerificationCode::create([
+            'code' => 'GHI789',
+            'verifiable' => 'taylor@laravel.com',
+        ]);
+
+        $this->assertFalse(VerificationCodeFacade::verify('FOOBAR', 'taylor@laravel.com'));
+        $this->assertEquals(3, VerificationCode::for('taylor@laravel.com')->count());
+    }
 }
