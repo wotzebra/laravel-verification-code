@@ -75,16 +75,6 @@ class VerificationCode extends Model
     }
 
     /**
-     * Get the expired state of the verification code.
-     *
-     * @return bool
-     */
-    public function getExpiredAttribute()
-    {
-        return $this->expires_at < now();
-    }
-
-    /**
      * Create a verification code for the verifiable.
      *
      * @param string $verifiable
@@ -112,5 +102,17 @@ class VerificationCode extends Model
     public function scopeFor($query, string $verifiable)
     {
         return $query->where('verifiable', $verifiable);
+    }
+
+    /**
+     * Scope a query to only include verification codes that have not expired.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeNotExpired($query)
+    {
+        return $query->where('expires_at', '>=', now());
     }
 }
