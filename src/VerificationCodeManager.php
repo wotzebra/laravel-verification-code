@@ -80,7 +80,7 @@ class VerificationCodeManager
     {
         $testVerifiables = config('verification-code.test_verifiables', []);
 
-        $testVerifiables = array_map(function($email){
+        $testVerifiables = array_map(function ($email) {
             return strtolower($email);
         }, $testVerifiables);
 
