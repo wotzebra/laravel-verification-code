@@ -80,7 +80,7 @@ class SendVerificationCodeTest extends TestCase
 
         VerificationCodeFacade::send('TAYLOR@LARAVEL.COM');
 
-        $this->assertNull(VerificationCode::where('verifiable', 'taylor@laravel.com')->first());
+        $this->assertNull(VerificationCode::where('verifiable', 'TAYLOR@LARAVEL.COM')->first());
 
         Notification::assertNothingSent();
     }
