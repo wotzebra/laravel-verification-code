@@ -74,6 +74,18 @@ class SendVerificationCodeTest extends TestCase
     }
 
     /** @test */
+    public function it_sends_no_notification_to_uppercase_test_verifiable()
+    {
+        config()->set('verification-code.test_verifiables', ['taylor@laravel.com']);
+
+        VerificationCodeFacade::send('TAYLOR@LARAVEL.COM');
+
+        $this->assertNull(VerificationCode::where('verifiable', 'taylor@laravel.com')->first());
+
+        Notification::assertNothingSent();
+    }
+
+    /** @test */
     public function it_deletes_old_code_of_verifiable_on_send()
     {
         $oldVerificationCode = VerificationCode::create(['code' => 'ABC123', 'verifiable' => 'taylor@laravel.com']);
