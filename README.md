@@ -76,7 +76,11 @@ You can run tests with:
 ``` bash
 composer test
 ```
+## Linting
 
+```bash
+composer lint
+```
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
