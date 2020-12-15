@@ -63,14 +63,14 @@ class VerificationCode extends Model
                 return;
             }
 
-            $oldVerificationCodeIds = VerificationCode::for($verificationCode->verifiable)
+            $oldVerificationCodeIds = self::for($verificationCode->verifiable)
                 ->orderByDesc('expires_at')
                 ->orderByDesc('id')
                 ->skip($maxCodes)
                 ->take(PHP_INT_MAX)
                 ->pluck('id');
 
-            VerificationCode::whereIn('id', $oldVerificationCodeIds)->delete();
+            self::whereIn('id', $oldVerificationCodeIds)->delete();
         });
     }
 
@@ -83,7 +83,7 @@ class VerificationCode extends Model
      */
     public static function createFor(string $verifiable)
     {
-        VerificationCode::create([
+        self::create([
             'code' => $code = app(CodeGenerator::class)->generate(),
             'verifiable' => $verifiable,
         ]);
