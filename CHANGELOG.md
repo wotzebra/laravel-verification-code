@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-verification-code` will be documented in this file
 
+## 0.3.4 - 2020-12-16
+
+- Verifying test verifiables is now case insensitive
+
 ## 0.3.3 - 2020-10-23
 
 - Verify against all codes of verifiable (instead of only first code) ([#12](https://github.com/nextapps-be/laravel-verification-code/pull/12))
