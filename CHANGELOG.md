@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-verification-code` will be documented in this file
 
+## 1.1.0 - 2021-02-15
+
+ - Add php8 support ([#17](https://github.com/nextapps-be/laravel-verification-code/pull/17))
+ 
+## 1.0.0 - 2021-01-15
+
+ - No changes
+
 ## 0.3.4 - 2020-12-16
 
 - Verifying test verifiables is now case insensitive ([#13](https://github.com/nextapps-be/laravel-verification-code/pull/13))
