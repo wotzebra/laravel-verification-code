@@ -35,12 +35,16 @@ php artisan vendor:publish --provider="NextApps\VerificationCode\VerificationCod
 
 ### Generate and send a verification code
 ```php
+use NextApps\VerificationCode\VerificationCode;
+
 VerificationCode::send($email);
 ```
 This will generate a verification code for the user. The code will be stored in the `verification_codes` table. An email with the generated code will then be sent to the user matching the given email address.
 
 ### Verify a verification code
 ```php
+use NextApps\VerificationCode\VerificationCode;
+
 VerificationCode::verify($code, $email);
 ```
 If the verification code is expired or does not match the user's email address, it will return `false`. If valid, it will return `true` and delete the code.
