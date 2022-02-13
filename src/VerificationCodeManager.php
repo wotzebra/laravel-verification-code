@@ -117,7 +117,7 @@ class VerificationCodeManager
         if (! is_subclass_of($notificationClass, VerificationCodeCreatedInterface::class)) {
             $interface = VerificationCodeCreatedInterface::class;
 
-            throw new RuntimeException('The notification class must implement the `{$interface}` interface');
+            throw new RuntimeException("The notification class must implement the `{$interface}` interface");
         }
 
         return $notificationClass;
