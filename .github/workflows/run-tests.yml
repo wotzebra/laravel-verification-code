@@ -27,9 +27,9 @@ jobs:
                     -   php: 8.0
                         dependency-version: prefer-lowest
                     -   php: 7.4
-                        laravel: 9
+                        laravel: 9.*
                     -   php: 7.3
-                        laravel: 9
+                        laravel: 9.*
 
         name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - ${{ matrix.dependency-version }}
 
@@ -61,7 +61,7 @@ jobs:
 
             - name: Install dependencies
               run: |
-                  composer require "illuminate/support:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+                  composer require "illuminate/database:${{ matrix.laravel }}" "illuminate/notifications:${{ matrix.laravel }}" "illuminate/support:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
                   composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
             - name: Execute tests
