@@ -115,7 +115,9 @@ class VerificationCodeManager
         $notificationClass = config('verification-code.notification', VerificationCodeCreated::class);
 
         if (! is_subclass_of($notificationClass, VerificationCodeCreatedInterface::class)) {
-            throw new RuntimeException('The notification class must implement the `\NextApps\VerificationCode\Notifications\VerificationCodeCreatedInterface` interface');
+            $interface = VerificationCodeCreatedInterface::class;
+
+            throw new RuntimeException('The notification class must implement the `{$interface}` interface');
         }
 
         return $notificationClass;
