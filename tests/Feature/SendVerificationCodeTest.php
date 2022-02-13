@@ -21,7 +21,7 @@ class SendVerificationCodeTest extends TestCase
         $this->assertNotNull(VerificationCode::where('verifiable', 'taylor@laravel.com')->first());
 
         Notification::assertSentTo(
-            new AnonymousNotifiable,
+            new AnonymousNotifiable(),
             VerificationCodeCreated::class,
             function ($notification, $channels, $notifiable) {
                 $this->assertEquals(['mail'], $channels);
@@ -40,7 +40,7 @@ class SendVerificationCodeTest extends TestCase
         VerificationCodeFacade::send('taylor@laravel.com');
 
         Notification::assertSentTo(
-            new AnonymousNotifiable,
+            new AnonymousNotifiable(),
             VerificationCodeCreated::class,
             function ($notification, $channels, $notifiable) {
                 return $notification->queue === 'random-queue';

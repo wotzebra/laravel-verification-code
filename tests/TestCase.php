@@ -18,7 +18,7 @@ abstract class TestCase extends Orchestra
      *
      * @return void
      */
-    protected function setUp(): void
+    protected function setUp() : void
     {
         parent::setUp();
 
@@ -48,8 +48,8 @@ abstract class TestCase extends Orchestra
      */
     protected function setUpDatabase()
     {
-        include_once __DIR__.'/../database/migrations/create_verification_codes_table.php.stub';
+        include_once __DIR__ . '/../database/migrations/create_verification_codes_table.php.stub';
 
-        (new \CreateVerificationCodesTable)->up();
+        (new \CreateVerificationCodesTable())->up();
     }
 }
