@@ -100,7 +100,7 @@ class SendVerificationCodeTest extends TestCase
     public function it_throws_exception_if_notification_does_not_extend_the_verification_notification_class()
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('The notification class must implement the `\NextApps\VerificationCode\Notifications\VerificationCodeCreatedInterface` interface');
+        $this->expectExceptionMessage('The notification class must implement the `NextApps\VerificationCode\Notifications\VerificationCodeCreatedInterface` interface');
 
         config()->set('verification-code.notification', NotificationDoesNotImplementInterface::class);
 
