@@ -21,7 +21,7 @@ class SendVerificationCodeTest extends TestCase
         $this->assertNotNull(VerificationCode::where('verifiable', 'taylor@laravel.com')->first());
 
         Notification::assertSentTo(
-            new AnonymousNotifiable,
+            new AnonymousNotifiable(),
             VerificationCodeCreated::class,
             function ($notification, $channels, $notifiable) {
                 $this->assertEquals(['mail'], $channels);
@@ -40,7 +40,7 @@ class SendVerificationCodeTest extends TestCase
         VerificationCodeFacade::send('taylor@laravel.com');
 
         Notification::assertSentTo(
-            new AnonymousNotifiable,
+            new AnonymousNotifiable(),
             VerificationCodeCreated::class,
             function ($notification, $channels, $notifiable) {
                 return $notification->queue === 'random-queue';
@@ -100,7 +100,7 @@ class SendVerificationCodeTest extends TestCase
     public function it_throws_exception_if_notification_does_not_extend_the_verification_notification_class()
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('The notification class must implement the `\NextApps\VerificationCode\Notifications\VerificationCodeCreatedInterface` interface');
+        $this->expectExceptionMessage('The notification class must implement the `NextApps\VerificationCode\Notifications\VerificationCodeCreatedInterface` interface');
 
         config()->set('verification-code.notification', NotificationDoesNotImplementInterface::class);
 

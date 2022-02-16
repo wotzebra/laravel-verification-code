@@ -94,7 +94,7 @@ class VerificationCode extends Model
     /**
      * Scope a query to only include verification codes for the provided verifiable.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @param string $verifiable
      *
      * @return \Illuminate\Database\Eloquent\Builder
@@ -107,7 +107,7 @@ class VerificationCode extends Model
     /**
      * Scope a query to only include verification codes that have not expired.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
