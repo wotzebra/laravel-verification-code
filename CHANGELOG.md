@@ -2,7 +2,11 @@
 
 All notable changes to `laravel-verification-code` will be documented in this file
 
-## 1.2.0 - 2022-02-16
+## 1.2.1 - 2022-03-01
+
+ - Fix composer.json file to ensure package can still be used in Laravel 7/8
+ 
+## 1.2.0 - 2022-03-01
 
  - Add PHP 8.1 and Laravel 9 support ([#20](https://github.com/nextapps-be/laravel-verification-code/pull/20))
  
