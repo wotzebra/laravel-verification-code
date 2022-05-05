@@ -3,7 +3,7 @@
 namespace NextApps\VerificationCode\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
+use NextApps\VerificationCode\Models\VerificationCode;
 
 class PruneCommand extends Command
 {
@@ -13,17 +13,6 @@ class PruneCommand extends Command
 
     public function handle() : void
     {
-        $query = DB::table('verification_codes')
-            ->where('created_at', '<', $this->option('hours'));
-
-        $totalDeleted = 0;
-
-        do {
-            $deleted = $query->take(1000)->delete();
-
-            $totalDeleted += $deleted;
-        } while ($deleted !== 0);
-
-        $this->info($totalDeleted . ' entries pruned.');
+        VerificationCode::where('created_at', '<=', now()->subHours($this->option('hours')))->delete();
     }
 }
