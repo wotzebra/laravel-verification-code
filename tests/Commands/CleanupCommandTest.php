@@ -13,7 +13,7 @@ class CleanupCommandTest extends TestCase
         VerificationCode::create([
             'code' => 'ABC123',
             'verifiable' => 'taylor@laravel.com',
-            'created_at' => now()->subDays(5)
+            'created_at' => now()->subDays(5),
         ]);
 
         $verificationCode = VerificationCode::create([
