@@ -49,6 +49,23 @@ VerificationCode::verify($code, $email);
 ```
 If the verification code is expired or does not match the user's email address, it will return `false`. If valid, it will return `true` and delete the code.
 
+If you do not want the code to be deleted (in case the same code needs to be verified at different points in the login flow) you can pass a third parameter.
+
+```php
+use NextApps\VerificationCode\VerificationCode;
+
+VerificationCode::verify($code, $email, $deleteAfterVerification);
+```
+
+
+### Verification codes table cleanup
+
+Since it is possible for the verification codes table to fill up with unused codes, the following command will prune all codes older than the given hours.
+
+```php
+php artisan verification-code:prune --hours=24
+```
+
 ## Config settings
 
 ### Length

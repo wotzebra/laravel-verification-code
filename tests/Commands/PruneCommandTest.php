@@ -5,7 +5,7 @@ namespace NextApps\VerificationCode\Tests\Feature;
 use NextApps\VerificationCode\Models\VerificationCode;
 use NextApps\VerificationCode\Tests\TestCase;
 
-class CleanupCommandTest extends TestCase
+class PruneCommandTest extends TestCase
 {
     /** @test */
     public function it_cleans_the_verification_code_table()
@@ -13,7 +13,7 @@ class CleanupCommandTest extends TestCase
         VerificationCode::create([
             'code' => 'ABC123',
             'verifiable' => 'taylor@laravel.com',
-            'created_at' => now()->subDays(5),
+            'created_at' => now()->subHours(5),
         ]);
 
         $verificationCode = VerificationCode::create([
@@ -21,7 +21,7 @@ class CleanupCommandTest extends TestCase
             'verifiable' => 'taylor@laravel.com',
         ]);
 
-        $this->artisan('verification-code:cleanup', ['days' => 3]);
+        $this->artisan('verification-code:prune', ['--hours' => 3]);
 
         $dbVerificationCode = VerificationCode::all();
 

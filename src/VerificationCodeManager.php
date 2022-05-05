@@ -47,7 +47,7 @@ class VerificationCodeManager
      *
      * @return bool
      */
-    public function verify(string $code, string $verifiable, bool $cleanup = true)
+    public function verify(string $code, string $verifiable, bool $deleteAfterVerification = true)
     {
         if ($this->isTestVerifiable($verifiable)) {
             return $this->isTestCode($code);
@@ -65,7 +65,7 @@ class VerificationCodeManager
             return false;
         }
 
-        if ($cleanup) {
+        if ($deleteAfterVerification) {
             VerificationCode::for($verifiable)->delete();
         }
 
