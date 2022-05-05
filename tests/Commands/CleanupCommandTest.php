@@ -10,14 +10,11 @@ class CleanupCommandTest extends TestCase
     /** @test */
     public function it_cleans_the_verification_code_table()
     {
-        $this->travelTo(now()->subDays(5));
-
         VerificationCode::create([
             'code' => 'ABC123',
             'verifiable' => 'taylor@laravel.com',
+            'created_at' => now()->subDays(5)
         ]);
-
-        $this->travelBack();
 
         $verificationCode = VerificationCode::create([
             'code' => '123ABC',
