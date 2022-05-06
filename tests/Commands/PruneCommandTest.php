@@ -23,9 +23,9 @@ class PruneCommandTest extends TestCase
 
         $this->artisan('verification-code:prune', ['--hours' => 3]);
 
-        $dbVerificationCode = VerificationCode::all();
+        $dbVerificationCodes = VerificationCode::all();
 
-        $this->assertCount(1, $dbVerificationCode);
-        $this->assertEquals($verificationCode->id, $dbVerificationCode->first()->id);
+        $this->assertCount(1, $dbVerificationCodes);
+        $this->assertEquals($verificationCode->id, $dbVerificationCodes->first()->id);
     }
 }

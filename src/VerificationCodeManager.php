@@ -43,7 +43,7 @@ class VerificationCodeManager
      *
      * @param string $code
      * @param string $verifiable
-     * @param bool $cleanup
+     * @param bool $deleteAfterVerification
      *
      * @return bool
      */
