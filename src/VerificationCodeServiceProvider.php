@@ -3,6 +3,7 @@
 namespace NextApps\VerificationCode;
 
 use Illuminate\Support\ServiceProvider;
+use NextApps\VerificationCode\Console\PruneCommand;
 
 class VerificationCodeServiceProvider extends ServiceProvider
 {
@@ -32,5 +33,7 @@ class VerificationCodeServiceProvider extends ServiceProvider
         });
 
         $this->mergeConfigFrom(__DIR__ . '/../config/verification-code.php', 'verification-code');
+
+        $this->commands([PruneCommand::class]);
     }
 }

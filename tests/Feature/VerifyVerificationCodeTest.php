@@ -58,6 +58,18 @@ class VerifyVerificationCodeTest extends TestCase
     }
 
     /** @test */
+    public function it_does_not_delete_code_if_cleanup_is_false()
+    {
+        $verificationCode = VerificationCode::create([
+            'code' => 'ABC123',
+            'verifiable' => 'taylor@laravel.com',
+        ]);
+
+        VerificationCodeFacade::verify('ABC123', 'taylor@laravel.com', false);
+        $this->assertNotNull(VerificationCode::find($verificationCode->id));
+    }
+
+    /** @test */
     public function it_returns_true_if_test_code_used_by_test_verifiable()
     {
         config()->set('verification-code.test_verifiables', ['taylor@laravel.com']);
