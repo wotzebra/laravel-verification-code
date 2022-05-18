@@ -2,10 +2,14 @@
 
 All notable changes to `laravel-verification-code` will be documented in this file
 
+## 1.2.3 - 2022-05-18
+
+- Changed: Do not purge codes that have not expired yet ([#24](https://github.com/nextapps-be/laravel-verification-code/pull/24))
+
 ## 1.2.2 - 2022-05-06
 
-- Added: parameter to verify method to prevent deleting of the code after verification
-- Added: command to prune old codes from the database
+- Added: parameter to verify method to prevent deleting of the code after verification ([#23](https://github.com/nextapps-be/laravel-verification-code/pull/23))
+- Added: command to prune old codes from the database ([#23](https://github.com/nextapps-be/laravel-verification-code/pull/23))
 
 ## 1.2.1 - 2022-03-01
 
