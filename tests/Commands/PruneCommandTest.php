@@ -8,24 +8,47 @@ use NextApps\VerificationCode\Tests\TestCase;
 class PruneCommandTest extends TestCase
 {
     /** @test */
-    public function it_cleans_the_verification_code_table()
+    public function it_deletes_old_expired_code()
     {
-        VerificationCode::create([
+        $verificationCode = VerificationCode::create([
             'code' => 'ABC123',
             'verifiable' => 'taylor@laravel.com',
-            'created_at' => now()->subHours(5),
+            'expires_at' => now()->subHour(),
         ]);
-
-        $verificationCode = VerificationCode::create([
-            'code' => '123ABC',
-            'verifiable' => 'taylor@laravel.com',
-        ]);
+        VerificationCode::where('id', $verificationCode->id)->update(['created_at' => now()->subHours(5)]);
 
         $this->artisan('verification-code:prune', ['--hours' => 3]);
 
-        $dbVerificationCodes = VerificationCode::all();
+        $this->assertNull(VerificationCode::find($verificationCode->id));
+    }
 
-        $this->assertCount(1, $dbVerificationCodes);
-        $this->assertEquals($verificationCode->id, $dbVerificationCodes->first()->id);
+    /** @test */
+    public function it_does_not_delete_old_but_not_expired_code()
+    {
+        $verificationCode = VerificationCode::create([
+            'code' => 'ABC123',
+            'verifiable' => 'taylor@laravel.com',
+            'expires_at' => now()->addHour(),
+        ]);
+        VerificationCode::where('id', $verificationCode->id)->update(['created_at' => now()->subHours(5)]);
+
+        $this->artisan('verification-code:prune', ['--hours' => 3]);
+
+        $this->assertNotNull(VerificationCode::find($verificationCode->id));
+    }
+
+    /** @test */
+    public function it_does_not_delete_code_that_is_not_old_enough()
+    {
+        $verificationCode = VerificationCode::create([
+            'code' => 'ABC123',
+            'verifiable' => 'taylor@laravel.com',
+            'expires_at' => now()->subHour(),
+        ]);
+        VerificationCode::where('id', $verificationCode->id)->update(['created_at' => now()->subHours(2)]);
+
+        $this->artisan('verification-code:prune', ['--hours' => 3]);
+
+        $this->assertNotNull(VerificationCode::find($verificationCode->id));
     }
 }
