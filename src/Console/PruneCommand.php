@@ -13,6 +13,9 @@ class PruneCommand extends Command
 
     public function handle() : void
     {
-        VerificationCode::where('created_at', '<=', now()->subHours($this->option('hours')))->delete();
+        VerificationCode::query()
+            ->where('created_at', '<=', now()->subHours($this->option('hours')))
+            ->where('expires_at', '<', now())
+            ->delete();
     }
 }
