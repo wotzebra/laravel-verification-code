@@ -51,14 +51,15 @@ class SendVerificationCodeTest extends TestCase
     /** @test */
     public function it_sends_notification_using_provided_channel()
     {
-        $this->mock(NotificationFake::class, function ($mock) {
-            $mock->shouldReceive('route')
-                ->with('a-random-channel', 'taylor@laravel.com')
-                ->andReturnSelf()
-                ->shouldReceive('notify');
-        });
+        if (! method_exists(NotificationFake::class, 'assertSentOnDemand')) {
+            $this->markTestSkipped('assertSentOnDemand method not available on NotificationFake');
+        }
 
         VerificationCodeFacade::send('taylor@laravel.com', 'a-random-channel');
+
+        Notification::assertSentOnDemand(function (VerificationCodeCreated $notification, array $channels, object $notifiable) {
+            return $notifiable->routes === ['a-random-channel' => 'taylor@laravel.com'];
+        });
     }
 
     /** @test */
