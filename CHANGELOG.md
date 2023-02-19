@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-verification-code` will be documented in this file
 
+## 1.3.0 - 2023-02-19
+
+- Add PHP 8.2 support ([#27](https://github.com/nextapps-be/laravel-verification-code/pull/27))
+- Add Laravel 10 support ([#26](https://github.com/nextapps-be/laravel-verification-code/pull/26))
+
 ## 1.2.3 - 2022-05-18
 
 - Changed: Do not purge codes that have not expired yet ([#24](https://github.com/nextapps-be/laravel-verification-code/pull/24))
