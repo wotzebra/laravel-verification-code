@@ -10,10 +10,17 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php: [7.3, 7.4, 8.0, 8.1]
+                php: [7.3, 7.4, 8.0, 8.1, 8.2]
                 laravel: [7.*, 8.*, 9.*, 10.*]
                 dependency-version: [prefer-lowest, prefer-stable]
                 exclude:
+                    -   php: 8.2
+                        laravel: 9.*
+                        dependency-version: prefer-lowest
+                    -   php: 8.2
+                        laravel: 8.*
+                    -   php: 8.2
+                        laravel: 7.*
                     -   php: 8.1
                         laravel: 8.*
                         dependency-version: prefer-lowest
@@ -43,7 +50,7 @@ jobs:
               run: sudo apt-get update --fix-missing
 
             - name: Checkout code
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
@@ -57,7 +64,7 @@ jobs:
                 echo "::set-output name=dir::$(composer config cache-files-dir)"
 
             - name: Cache Composer packages
-              uses: actions/cache@v2
+              uses: actions/cache@v3
               with:
                 path: ${{ steps.composer-cache.outputs.dir }}
                 key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
