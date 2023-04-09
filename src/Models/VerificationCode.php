@@ -73,6 +73,16 @@ class VerificationCode extends Model
             self::whereIn('id', $oldVerificationCodeIds)->delete();
         });
     }
+    
+    /**
+     * Table.
+     *
+     * @return string
+     */
+    public function getTable(): string
+    {
+        return config('verification-code.table');
+    }
 
     /**
      * Create a verification code for the verifiable.
