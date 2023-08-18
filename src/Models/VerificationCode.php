@@ -2,46 +2,27 @@
 
 namespace NextApps\VerificationCode\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use NextApps\VerificationCode\Support\CodeGenerator;
 
 class VerificationCode extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'code',
         'verifiable',
         'expires_at',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'code',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'expires_at' => 'datetime',
     ];
 
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
     public static function boot()
     {
         parent::boot();
@@ -74,14 +55,7 @@ class VerificationCode extends Model
         });
     }
 
-    /**
-     * Create a verification code for the verifiable.
-     *
-     * @param string $verifiable
-     *
-     * @return string
-     */
-    public static function createFor(string $verifiable)
+    public static function createFor(string $verifiable) : string
     {
         self::create([
             'code' => $code = app(CodeGenerator::class)->generate(),
@@ -91,27 +65,12 @@ class VerificationCode extends Model
         return $code;
     }
 
-    /**
-     * Scope a query to only include verification codes for the provided verifiable.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $verifiable
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeFor($query, string $verifiable)
+    public function scopeFor(Builder $query, string $verifiable) : Builder
     {
         return $query->where('verifiable', $verifiable);
     }
 
-    /**
-     * Scope a query to only include verification codes that have not expired.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeNotExpired($query)
+    public function scopeNotExpired(Builder $query) : Builder
     {
         return $query->where('expires_at', '>=', now());
     }

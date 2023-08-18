@@ -7,9 +7,6 @@ use NextApps\VerificationCode\Console\PruneCommand;
 
 class VerificationCodeServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap the application services.
-     */
     public function boot()
     {
         $this->publishes([
@@ -23,9 +20,6 @@ class VerificationCodeServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * Register the application services.
-     */
     public function register()
     {
         $this->app->bind('verification-code', function () {

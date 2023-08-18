@@ -14,13 +14,8 @@ class VerificationCodeManager
 {
     /**
      * Create and send a verification code.
-     *
-     * @param string $verifiable
-     * @param string $channel
-     *
-     * @return void
      */
-    public function send(string $verifiable, string $channel = 'mail')
+    public function send(string $verifiable, string $channel = 'mail') : void
     {
         if ($this->isTestVerifiable($verifiable)) {
             return;
@@ -38,16 +33,7 @@ class VerificationCodeManager
         Notification::route($channel, $verifiable)->notify($notification);
     }
 
-    /**
-     * Verify the code.
-     *
-     * @param string $code
-     * @param string $verifiable
-     * @param bool $deleteAfterVerification
-     *
-     * @return bool
-     */
-    public function verify(string $code, string $verifiable, bool $deleteAfterVerification = true)
+    public function verify(string $code, string $verifiable, bool $deleteAfterVerification = true) : bool
     {
         if ($this->isTestVerifiable($verifiable)) {
             return $this->isTestCode($code);
@@ -72,14 +58,7 @@ class VerificationCodeManager
         return true;
     }
 
-    /**
-     * Check if the verifiable is a test verifiable.
-     *
-     * @param string $verifiable
-     *
-     * @return bool
-     */
-    protected function isTestVerifiable(string $verifiable)
+    protected function isTestVerifiable(string $verifiable) : bool
     {
         $testVerifiables = config('verification-code.test_verifiables', []);
 
@@ -90,14 +69,7 @@ class VerificationCodeManager
         return in_array(strtolower($verifiable), $testVerifiables);
     }
 
-    /**
-     * Check if the code is the test code.
-     *
-     * @param string $code
-     *
-     * @return bool
-     */
-    protected function isTestCode(string $code)
+    protected function isTestCode(string $code) : bool
     {
         if (empty(config('verification-code.test_code'))) {
             return false;
@@ -106,14 +78,7 @@ class VerificationCodeManager
         return $code === config('verification-code.test_code');
     }
 
-    /**
-     * Get the notification class.
-     *
-     * @throws \RuntimeException
-     *
-     * @return string
-     */
-    protected function getNotificationClass()
+    protected function getNotificationClass() : string
     {
         $notificationClass = config('verification-code.notification', VerificationCodeCreated::class);
 

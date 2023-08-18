@@ -6,12 +6,7 @@ use RuntimeException;
 
 class CodeGenerator
 {
-    /**
-     * Generate a random code.
-     *
-     * @return string
-     */
-    public function generate()
+    public function generate() : string
     {
         $length = $this->getLength();
         $characters = $this->getCharacters();
@@ -23,14 +18,7 @@ class CodeGenerator
             ->join('');
     }
 
-    /**
-     * Get the required length.
-     *
-     * @throws \RuntimeException
-     *
-     * @return int
-     */
-    protected function getLength()
+    protected function getLength() : int
     {
         $length = config('verification-code.length');
 
@@ -41,14 +29,7 @@ class CodeGenerator
         return $length;
     }
 
-    /**
-     * Get the allowed characters.
-     *
-     * @throws \RuntimeException
-     *
-     * @return string
-     */
-    protected function getCharacters()
+    protected function getCharacters() : string
     {
         $characters = config('verification-code.characters');
 
