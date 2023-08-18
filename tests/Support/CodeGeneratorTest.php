@@ -32,6 +32,18 @@ class CodeGeneratorTest extends TestCase
     }
 
     /** @test */
+    public function it_generates_code_using_unicode_characters_from_config()
+    {
+        config()->set('verification-code.characters', 'цукенгзхфывапролджэячсмитбю');
+
+        $code = app(CodeGenerator::class)->generate();
+
+        foreach (mb_str_split($code) as $character) {
+            $this->assertTrue(Str::contains('цукенгзхфывапролджэячсмитбю', $character));
+        }
+    }
+
+    /** @test */
     public function it_throws_exception_if_length_is_no_integer()
     {
         config()->set('verification-code.length', null);

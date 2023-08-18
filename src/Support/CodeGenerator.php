@@ -13,7 +13,7 @@ class CodeGenerator
 
         return collect(range(0, $length - 1))
             ->map(function () use ($characters) {
-                return $characters[rand(0, strlen($characters) - 1)];
+                return $characters[rand(0, count($characters) - 1)];
             })
             ->join('');
     }
@@ -29,14 +29,14 @@ class CodeGenerator
         return $length;
     }
 
-    protected function getCharacters() : string
+    protected function getCharacters() : array
     {
         $characters = config('verification-code.characters');
 
-        if (! is_string($characters) || strlen($characters) <= 0) {
+        if (! is_string($characters) || mb_strlen($characters) <= 0) {
             throw new RuntimeException('The character list must contain at least 1 character');
         }
 
-        return $characters;
+        return mb_str_split($characters);
     }
 }
