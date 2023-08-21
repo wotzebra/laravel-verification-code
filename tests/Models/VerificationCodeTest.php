@@ -23,7 +23,7 @@ class VerificationCodeTest extends TestCase
     /** @test */
     public function it_sets_expiration_date_based_on_config()
     {
-        config()->set('verification-code.expire_hours', 6);
+        config()->set('verification-code.expire_seconds', 6 * 60 * 60);
 
         VerificationCode::createFor('taylor@laravel.com');
 
@@ -70,7 +70,7 @@ class VerificationCodeTest extends TestCase
     /** @test */
     public function it_sets_expiration_date_if_not_set_on_create()
     {
-        config()->set('verification-code.expire_hours', 4);
+        config()->set('verification-code.expire_seconds', 4 * 60 * 60);
 
         $verificationCode = VerificationCode::create([
             'code' => 'ABC123',
@@ -85,7 +85,7 @@ class VerificationCodeTest extends TestCase
     /** @test */
     public function it_does_not_set_expiration_date_if_already_set_on_create()
     {
-        config()->set('verification.expire_hours', 4);
+        config()->set('verification.expire_seconds', 4 * 60 * 60);
 
         $verificationCode = VerificationCode::create([
             'code' => 'ABC123',

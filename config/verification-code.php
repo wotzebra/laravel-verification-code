@@ -29,10 +29,10 @@ return [
     |--------------------------------------------------------------------------
     |
     | A verification code is only valid for a certain amount of time. Here
-    | you define after how many hours a verification code will expire.
+    | you define after how many seconds a verification code will expire.
     |
     */
-    'expire_hours' => 1,
+    'expire_seconds' => 1 * 60 * 60,
 
     /*
     |--------------------------------------------------------------------------
