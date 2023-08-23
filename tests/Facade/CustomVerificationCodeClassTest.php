@@ -2,9 +2,9 @@
 
 namespace NextApps\VerificationCode\Tests\Facade;
 
-use NextApps\VerificationCode\VerificationCode as VerificationCodeFacade;
 use NextApps\VerificationCode\Models\VerificationCode;
 use NextApps\VerificationCode\Tests\TestCase;
+use NextApps\VerificationCode\VerificationCode as VerificationCodeFacade;
 use RuntimeException;
 
 class CustomVerificationCodeClassTest extends TestCase
@@ -12,7 +12,7 @@ class CustomVerificationCodeClassTest extends TestCase
     /** @test */
     public function it_returns_the_model_verification_code_class_by_default()
     {
-        $this->assertSame(VerificationCode::class ,VerificationCodeFacade::getModelClass());
+        $this->assertSame(VerificationCode::class, VerificationCodeFacade::getModelClass());
     }
 
     /** @test */
@@ -20,7 +20,7 @@ class CustomVerificationCodeClassTest extends TestCase
     {
         config()->set('verification-code.model', ModelDoesExtendVerificationCode::class);
 
-        $this->assertSame(ModelDoesExtendVerificationCode::class ,VerificationCodeFacade::getModelClass());
+        $this->assertSame(ModelDoesExtendVerificationCode::class, VerificationCodeFacade::getModelClass());
     }
 
     /** @test */
