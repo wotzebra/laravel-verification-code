@@ -84,6 +84,9 @@ change this setting to a different number (or to `null` if you want unlimited co
 ### Custom Notification
 If you want to use a custom notification to send the verification code, you can create your own notification class which should extend the `VerificationCodeCreatedInterface`. Make sure you don't forget to pass the verification code to the mail.
 
+### Custom Model
+If you want to use a custom verification code model, you can create your own verification code class which should extend the `VerificationCode`.
+
 ### Queue
 If your notification is queueable, you can  define the queue that will be used for the notification.
 

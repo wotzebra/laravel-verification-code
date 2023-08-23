@@ -21,7 +21,7 @@ class VerificationCodeManager
             return;
         }
 
-        $code = VerificationCode::createFor($verifiable);
+        $code = $this->getModelClass()::createFor($verifiable);
 
         $notificationClass = $this->getNotificationClass();
         $notification = new $notificationClass($code);
@@ -39,7 +39,9 @@ class VerificationCodeManager
             return $this->isTestCode($code);
         }
 
-        $codeIsValid = VerificationCode::query()
+        $modelClass = $this->getModelClass();
+
+        $codeIsValid = $modelClass::query()
             ->for($verifiable)
             ->notExpired()
             ->cursor()
@@ -52,10 +54,23 @@ class VerificationCodeManager
         }
 
         if ($deleteAfterVerification) {
-            VerificationCode::for($verifiable)->delete();
+            $modelClass::for($verifiable)->delete();
         }
 
         return true;
+    }
+
+    public function getModelClass() : string
+    {
+        $modelClass = config('verification-code.model', VerificationCode::class);
+
+        if (! is_a($modelClass, VerificationCode::class, true)) {
+            $model = VerificationCode::class;
+
+            throw new RuntimeException("The model class must extend the `{$model}` class");
+        }
+
+        return $modelClass;
     }
 
     protected function isTestVerifiable(string $verifiable) : bool

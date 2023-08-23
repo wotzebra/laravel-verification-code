@@ -3,7 +3,7 @@
 namespace NextApps\VerificationCode\Console;
 
 use Illuminate\Console\Command;
-use NextApps\VerificationCode\Models\VerificationCode;
+use NextApps\VerificationCode\VerificationCode;
 
 class PruneCommand extends Command
 {
@@ -13,7 +13,7 @@ class PruneCommand extends Command
 
     public function handle() : void
     {
-        VerificationCode::query()
+        VerificationCode::getModelClass()::query()
             ->where('created_at', '<=', now()->subHours($this->option('hours')))
             ->where('expires_at', '<', now())
             ->delete();
