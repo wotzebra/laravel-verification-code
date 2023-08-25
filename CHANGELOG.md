@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-verification-code` will be documented in this file
 
+## 2.0.0 - 2023-08-25
+- Verification code Model can be customized ([#33](https://github.com/nextapps-be/laravel-verification-code/pull/33))
+- Expire hours changed to Expire seconds ([#32](https://github.com/nextapps-be/laravel-verification-code/pull/32))
+- Add unicode support ([#30](https://github.com/nextapps-be/laravel-verification-code/pull/30))
+- Drop support for PHP 7.x and Drop support for Laravel 7, Laravel 8 and Laravel 9 ([#31](https://github.com/nextapps-be/laravel-verification-code/pull/31))
+
 ## 1.3.0 - 2023-02-19
 
 - Add PHP 8.2 support ([#27](https://github.com/nextapps-be/laravel-verification-code/pull/27))
