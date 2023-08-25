@@ -29,7 +29,7 @@ class VerificationCode extends Model
 
         static::creating(function ($verificationCode) {
             if ($verificationCode->expires_at === null) {
-                $verificationCode->expires_at = now()->addHours(config('verification-code.expire_hours', 0));
+                $verificationCode->expires_at = now()->addSeconds(config('verification-code.expire_seconds', 0));
             }
 
             if (Hash::needsRehash($verificationCode->code)) {
