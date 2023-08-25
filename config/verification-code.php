@@ -63,6 +63,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Custom Model
+    |--------------------------------------------------------------------------
+    |
+    | Here you can customize the VerificationCode class that will be used
+    |
+    | It should extend the package class:
+    |   - \NextApps\VerificationCode\Models\VerificationCode
+    |
+    */
+    'model' => \NextApps\VerificationCode\Models\VerificationCode::class,
+
+    /*
+    |--------------------------------------------------------------------------
     | Queue
     |--------------------------------------------------------------------------
     |
