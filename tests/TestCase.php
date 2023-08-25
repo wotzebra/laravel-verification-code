@@ -13,11 +13,6 @@ abstract class TestCase extends Orchestra
     use WithFaker,
         DatabaseMigrations;
 
-    /**
-     * Setup the test environment.
-     *
-     * @return void
-     */
     protected function setUp() : void
     {
         parent::setUp();
@@ -28,25 +23,16 @@ abstract class TestCase extends Orchestra
     }
 
     /**
-     * Load package service provider.
-     *
      * @param \Illuminate\Foundation\Application $app
-     *
-     * @return array
      */
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app) : array
     {
         return [
             VerificationCodeServiceProvider::class,
         ];
     }
 
-    /**
-     * Set up the database.
-     *
-     * @return void
-     */
-    protected function setUpDatabase()
+    protected function setUpDatabase() : void
     {
         include_once __DIR__ . '/../database/migrations/create_verification_codes_table.php.stub';
 

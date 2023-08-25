@@ -11,37 +11,19 @@ class VerificationCodeCreated extends Notification implements ShouldQueue, Verif
 {
     use Queueable;
 
-    /**
-     * @var string
-     */
     public $code;
 
-    /**
-     * Create a new message instance.
-     *
-     * @param string $code
-     */
     public function __construct(string $code)
     {
         $this->code = $code;
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @return array
-     */
-    public function via()
+    public function via() : array
     {
         return ['mail'];
     }
 
-    /**
-     * Build the mail representation of the notification.
-     *
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail()
+    public function toMail() : MailMessage
     {
         return (new MailMessage())
             ->subject(__('Your verification code'))
