@@ -30,7 +30,7 @@ class VerificationCodeTest extends TestCase
         $dbVerificationCode = VerificationCode::first();
 
         $this->assertNotNull($dbVerificationCode->expires_at);
-        $this->assertEquals(0, $dbVerificationCode->expires_at->diffInMinutes(now()->addHours(6)));
+        $this->assertEquals(0, (int) $dbVerificationCode->expires_at->diffInMinutes(now()->addHours(6)));
     }
 
     /** @test */
@@ -79,7 +79,7 @@ class VerificationCodeTest extends TestCase
         ]);
 
         $this->assertNotNull($verificationCode->expires_at);
-        $this->assertEquals(0, $verificationCode->expires_at->diffInMinutes(now()->addHours(4)));
+        $this->assertEquals(0, (int) $verificationCode->expires_at->diffInMinutes(now()->addHours(4)));
     }
 
     /** @test */

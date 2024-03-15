@@ -1,8 +1,8 @@
 <?php
 
-use AdamWojs\PhpCsFixerPhpdocForceFQCN\Fixer\Phpdoc\ForceFQCNFixer;
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
+use AdamWojs\PhpCsFixerPhpdocForceFQCN\Fixer\Phpdoc\ForceFQCNFixer;
 
 $rules = [
     '@PSR2' => true,
@@ -32,7 +32,7 @@ $rules = [
     // Converts implicit variables into explicit ones in double-quoted strings or heredoc syntax.
     'explicit_string_variable' => true,
     // Transforms imported FQCN parameters and return types in function arguments to short version.
-    'fully_qualified_strict_types' => true,
+    'fully_qualified_strict_types' => false,
     // Add missing space between function's argument and its typehint.
     'function_typehint_space' => true,
     // Pre- or post-increment and decrement operators should be used if possible.
@@ -195,7 +195,7 @@ $finder = Finder::create()
 
 return (new Config())
     ->registerCustomFixers([
-        new ForceFQCNFixer(),
+        new ForceFQCNFixer()
     ])
     ->setRules($rules)
     ->setFinder($finder);
