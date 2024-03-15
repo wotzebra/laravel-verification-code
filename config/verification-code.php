@@ -59,7 +59,7 @@ return [
     |   - \NextApps\VerificationCode\Notifications\VerificationCodeCreatedInterface
     |
     */
-    'notification' => \NextApps\VerificationCode\Notifications\VerificationCodeCreated::class,
+    'notification' => NextApps\VerificationCode\Notifications\VerificationCodeCreated::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -72,7 +72,7 @@ return [
     |   - \NextApps\VerificationCode\Models\VerificationCode
     |
     */
-    'model' => \NextApps\VerificationCode\Models\VerificationCode::class,
+    'model' => NextApps\VerificationCode\Models\VerificationCode::class,
 
     /*
     |--------------------------------------------------------------------------
