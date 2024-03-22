@@ -15,7 +15,7 @@ class VerificationCodeManager
     /**
      * Create and send a verification code.
      */
-    public function send(string $verifiable, string $channel = 'mail') : void
+    public function send(string $verifiable, string $channel = 'mail', ...$args) : void
     {
         if ($this->isTestVerifiable($verifiable)) {
             return;
@@ -24,7 +24,7 @@ class VerificationCodeManager
         $code = $this->getModelClass()::createFor($verifiable);
 
         $notificationClass = $this->getNotificationClass();
-        $notification = new $notificationClass($code);
+        $notification = new $notificationClass($code, $args);
 
         if ($notification instanceof ShouldQueue) {
             $notification->onQueue(config('verification-code.queue', null));
