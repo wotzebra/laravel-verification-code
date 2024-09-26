@@ -1,11 +1,11 @@
 <?php
 
-namespace NextApps\VerificationCode\Tests\Models;
+namespace Wotz\VerificationCode\Tests\Models;
 
 use Illuminate\Support\Facades\Hash;
-use NextApps\VerificationCode\Models\VerificationCode;
-use NextApps\VerificationCode\Support\CodeGenerator;
-use NextApps\VerificationCode\Tests\TestCase;
+use Wotz\VerificationCode\Models\VerificationCode;
+use Wotz\VerificationCode\Support\CodeGenerator;
+use Wotz\VerificationCode\Tests\TestCase;
 
 class VerificationCodeTest extends TestCase
 {

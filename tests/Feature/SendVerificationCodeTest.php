@@ -1,14 +1,14 @@
 <?php
 
-namespace NextApps\VerificationCode\Tests\Feature;
+namespace Wotz\VerificationCode\Tests\Feature;
 
 use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Testing\Fakes\NotificationFake;
-use NextApps\VerificationCode\Models\VerificationCode;
-use NextApps\VerificationCode\Notifications\VerificationCodeCreated;
-use NextApps\VerificationCode\Tests\TestCase;
-use NextApps\VerificationCode\VerificationCode as VerificationCodeFacade;
+use Wotz\VerificationCode\Models\VerificationCode;
+use Wotz\VerificationCode\Notifications\VerificationCodeCreated;
+use Wotz\VerificationCode\Tests\TestCase;
+use Wotz\VerificationCode\VerificationCode as VerificationCodeFacade;
 use RuntimeException;
 
 class SendVerificationCodeTest extends TestCase
@@ -101,7 +101,7 @@ class SendVerificationCodeTest extends TestCase
     public function it_throws_exception_if_notification_does_not_extend_the_verification_notification_class()
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('The notification class must implement the `NextApps\VerificationCode\Notifications\VerificationCodeCreatedInterface` interface');
+        $this->expectExceptionMessage('The notification class must implement the `Wotz\VerificationCode\Notifications\VerificationCodeCreatedInterface` interface');
 
         config()->set('verification-code.notification', NotificationDoesNotImplementInterface::class);
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace NextApps\VerificationCode\Tests\Feature;
+namespace Wotz\VerificationCode\Tests\Feature;
 
-use NextApps\VerificationCode\Models\VerificationCode;
-use NextApps\VerificationCode\Tests\TestCase;
-use NextApps\VerificationCode\VerificationCode as VerificationCodeFacade;
+use Wotz\VerificationCode\Models\VerificationCode;
+use Wotz\VerificationCode\Tests\TestCase;
+use Wotz\VerificationCode\VerificationCode as VerificationCodeFacade;
 
 class VerifyVerificationCodeTest extends TestCase
 {

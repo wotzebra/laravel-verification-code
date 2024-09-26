@@ -1,9 +1,9 @@
 <?php
 
-namespace NextApps\VerificationCode\Console;
+namespace Wotz\VerificationCode\Console;
 
 use Illuminate\Console\Command;
-use NextApps\VerificationCode\VerificationCode;
+use Wotz\VerificationCode\VerificationCode;
 
 class PruneCommand extends Command
 {

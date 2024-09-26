@@ -56,10 +56,10 @@ return [
     | a verification code.
     |
     | It should implement the interface:
-    |   - \NextApps\VerificationCode\Notifications\VerificationCodeCreatedInterface
+    |   - \Wotz\VerificationCode\Notifications\VerificationCodeCreatedInterface
     |
     */
-    'notification' => NextApps\VerificationCode\Notifications\VerificationCodeCreated::class,
+    'notification' => Wotz\VerificationCode\Notifications\VerificationCodeCreated::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -69,10 +69,10 @@ return [
     | Here you can customize the VerificationCode class that will be used
     |
     | It should extend the package class:
-    |   - \NextApps\VerificationCode\Models\VerificationCode
+    |   - \Wotz\VerificationCode\Models\VerificationCode
     |
     */
-    'model' => NextApps\VerificationCode\Models\VerificationCode::class,
+    'model' => Wotz\VerificationCode\Models\VerificationCode::class,
 
     /*
     |--------------------------------------------------------------------------

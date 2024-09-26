@@ -1,6 +1,6 @@
 <?php
 
-namespace NextApps\VerificationCode\Notifications;
+namespace Wotz\VerificationCode\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

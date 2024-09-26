@@ -1,9 +1,9 @@
 <?php
 
-namespace NextApps\VerificationCode;
+namespace Wotz\VerificationCode;
 
 use Illuminate\Support\ServiceProvider;
-use NextApps\VerificationCode\Console\PruneCommand;
+use Wotz\VerificationCode\Console\PruneCommand;
 
 class VerificationCodeServiceProvider extends ServiceProvider
 {

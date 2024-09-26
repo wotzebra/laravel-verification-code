@@ -1,10 +1,10 @@
 <?php
 
-namespace NextApps\VerificationCode\Tests\Support;
+namespace Wotz\VerificationCode\Tests\Support;
 
 use Illuminate\Support\Str;
-use NextApps\VerificationCode\Support\CodeGenerator;
-use NextApps\VerificationCode\Tests\TestCase;
+use Wotz\VerificationCode\Support\CodeGenerator;
+use Wotz\VerificationCode\Tests\TestCase;
 use RuntimeException;
 
 class CodeGeneratorTest extends TestCase

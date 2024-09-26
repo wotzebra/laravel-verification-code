@@ -1,9 +1,9 @@
 <?php
 
-namespace NextApps\VerificationCode\Tests\Feature;
+namespace Wotz\VerificationCode\Tests\Feature;
 
-use NextApps\VerificationCode\Models\VerificationCode;
-use NextApps\VerificationCode\Tests\TestCase;
+use Wotz\VerificationCode\Models\VerificationCode;
+use Wotz\VerificationCode\Tests\TestCase;
 
 class PruneCommandTest extends TestCase
 {

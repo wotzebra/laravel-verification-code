@@ -1,11 +1,11 @@
 <?php
 
-namespace NextApps\VerificationCode\Models;
+namespace Wotz\VerificationCode\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
-use NextApps\VerificationCode\Support\CodeGenerator;
+use Wotz\VerificationCode\Support\CodeGenerator;
 
 class VerificationCode extends Model
 {
