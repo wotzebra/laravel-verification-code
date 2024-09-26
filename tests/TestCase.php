@@ -5,8 +5,8 @@ namespace Wotz\VerificationCode\Tests;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Notification;
-use Wotz\VerificationCode\VerificationCodeServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Wotz\VerificationCode\VerificationCodeServiceProvider;
 
 abstract class TestCase extends Orchestra
 {

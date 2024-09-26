@@ -5,10 +5,10 @@ namespace Wotz\VerificationCode;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
+use RuntimeException;
 use Wotz\VerificationCode\Models\VerificationCode;
 use Wotz\VerificationCode\Notifications\VerificationCodeCreated;
 use Wotz\VerificationCode\Notifications\VerificationCodeCreatedInterface;
-use RuntimeException;
 
 class VerificationCodeManager
 {

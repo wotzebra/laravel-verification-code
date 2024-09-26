@@ -5,11 +5,11 @@ namespace Wotz\VerificationCode\Tests\Feature;
 use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Testing\Fakes\NotificationFake;
+use RuntimeException;
 use Wotz\VerificationCode\Models\VerificationCode;
 use Wotz\VerificationCode\Notifications\VerificationCodeCreated;
 use Wotz\VerificationCode\Tests\TestCase;
 use Wotz\VerificationCode\VerificationCode as VerificationCodeFacade;
-use RuntimeException;
 
 class SendVerificationCodeTest extends TestCase
 {

@@ -2,10 +2,10 @@
 
 namespace Wotz\VerificationCode\Tests\Facade;
 
+use RuntimeException;
 use Wotz\VerificationCode\Models\VerificationCode;
 use Wotz\VerificationCode\Tests\TestCase;
 use Wotz\VerificationCode\VerificationCode as VerificationCodeFacade;
-use RuntimeException;
 
 class CustomVerificationCodeClassTest extends TestCase
 {

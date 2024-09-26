@@ -3,9 +3,9 @@
 namespace Wotz\VerificationCode\Tests\Support;
 
 use Illuminate\Support\Str;
+use RuntimeException;
 use Wotz\VerificationCode\Support\CodeGenerator;
 use Wotz\VerificationCode\Tests\TestCase;
-use RuntimeException;
 
 class CodeGeneratorTest extends TestCase
 {
