@@ -1,5 +1,10 @@
 # Upgrading
 
+## From v2 to v3
+
+- Install `wotz/laravel-verification-code` instead of `nextapps/laravel-verification-code`
+- Replace all occurrences of `NextApps\VerificationCode` namespace with new `Wotz\VerificationCode` namespace
+
 ## From v1 to v2
 
 - Config variable `expire_hours` has been renamed to  `expire_seconds`, rename your config variable and multiply your value by 3600 to have the same behaviour.
