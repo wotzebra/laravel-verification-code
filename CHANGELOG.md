@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-verification-code` will be documented in this file
 
+## 3.0.0 - 2024-09-26
+
+- Changed: Change namespace from 'NextApps' to 'Wotz' ([#39](https://github.com/wotzebra/laravel-verification-code/pull/39))
+
 ## 2.1.1 - 2024-03-15
 
 - Added: Laravel 11 support ([#36](https://github.com/wotzebra/laravel-verification-code/pull/36))
