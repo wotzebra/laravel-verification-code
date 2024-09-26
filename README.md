@@ -1,7 +1,7 @@
-# Laravel verification code
+# Laravel Verification Code
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/nextapps/laravel-verification-code.svg?style=flat-square)](https://packagist.org/packages/nextapps/laravel-verification-code)
-[![Total Downloads](https://img.shields.io/packagist/dt/nextapps/laravel-verification-code.svg?style=flat-square)](https://packagist.org/packages/nextapps/laravel-verification-code)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/wotz/laravel-verification-code.svg?style=flat-square)](https://packagist.org/packages/wotz/laravel-verification-code)
+[![Total Downloads](https://img.shields.io/packagist/dt/wotz/laravel-verification-code.svg?style=flat-square)](https://packagist.org/packages/wotz/laravel-verification-code)
 
 This package makes it possible to authenticate a user via a verification code.
 
@@ -10,14 +10,14 @@ This package makes it possible to authenticate a user via a verification code.
 You can install this package using composer:
 
 ```bash
-composer require nextapps/laravel-verification-code
+composer require wotz/laravel-verification-code
 ```
 
 The package will automatically register itself.
 
 You can publish the migration with:
 ```bash
-php artisan vendor:publish --provider="NextApps\VerificationCode\VerificationCodeServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="Wotz\VerificationCode\VerificationCodeServiceProvider" --tag="migrations"
 ```
 
 After publishing the migration, run the migration with:
@@ -27,14 +27,14 @@ php artisan migrate
 
 You can publish the config file with:
 ```bash
-php artisan vendor:publish --provider="NextApps\VerificationCode\VerificationCodeServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Wotz\VerificationCode\VerificationCodeServiceProvider" --tag="config"
 ```
 
 ## Usage
 
 ### Generate and send a verification code
 ```php
-use NextApps\VerificationCode\VerificationCode;
+use Wotz\VerificationCode\VerificationCode;
 
 VerificationCode::send($email);
 ```
@@ -42,7 +42,7 @@ This will generate a verification code for the user. The code will be stored in 
 
 ### Verify a verification code
 ```php
-use NextApps\VerificationCode\VerificationCode;
+use Wotz\VerificationCode\VerificationCode;
 
 VerificationCode::verify($code, $email);
 ```
@@ -51,7 +51,7 @@ If the verification code is expired or does not match the user's email address, 
 If you do not want the code to be deleted (in case the same code needs to be verified at different points in the login flow) you can pass a third parameter.
 
 ```php
-use NextApps\VerificationCode\VerificationCode;
+use Wotz\VerificationCode\VerificationCode;
 
 VerificationCode::verify($code, $email, $deleteAfterVerification);
 ```
@@ -113,9 +113,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Credits
 
-- [Evert Arnould](https://github.com/earnould)
 - [Günther Debrauwer](https://github.com/gdebrauwer)
-- [Philippe Damen](https://github.com/yinx)
 - [All Contributors](../../contributors)
 
 ## License

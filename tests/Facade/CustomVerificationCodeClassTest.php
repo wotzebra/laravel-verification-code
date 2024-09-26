@@ -1,11 +1,11 @@
 <?php
 
-namespace NextApps\VerificationCode\Tests\Facade;
+namespace Wotz\VerificationCode\Tests\Facade;
 
-use NextApps\VerificationCode\Models\VerificationCode;
-use NextApps\VerificationCode\Tests\TestCase;
-use NextApps\VerificationCode\VerificationCode as VerificationCodeFacade;
 use RuntimeException;
+use Wotz\VerificationCode\Models\VerificationCode;
+use Wotz\VerificationCode\Tests\TestCase;
+use Wotz\VerificationCode\VerificationCode as VerificationCodeFacade;
 
 class CustomVerificationCodeClassTest extends TestCase
 {
@@ -27,7 +27,7 @@ class CustomVerificationCodeClassTest extends TestCase
     public function it_throws_exception_if_notification_does_not_extend_the_verification_notification_class()
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('The model class must extend the `NextApps\VerificationCode\Models\VerificationCode` class');
+        $this->expectExceptionMessage('The model class must extend the `Wotz\VerificationCode\Models\VerificationCode` class');
 
         config()->set('verification-code.model', ModelDoesNotExtendVerificationCode::class);
 

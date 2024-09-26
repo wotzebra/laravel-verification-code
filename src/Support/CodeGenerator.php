@@ -1,6 +1,6 @@
 <?php
 
-namespace NextApps\VerificationCode\Support;
+namespace Wotz\VerificationCode\Support;
 
 use RuntimeException;
 

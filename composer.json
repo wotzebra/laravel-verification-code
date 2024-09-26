@@ -1,29 +1,20 @@
 {
-    "name": "nextapps/laravel-verification-code",
+    "name": "wotz/laravel-verification-code",
     "description": "A simple way to authenticate a user using a verification code.",
     "keywords": [
-        "nextapps",
         "laravel",
         "authentication",
-        "verification"
+        "verification",
+        "verification code",
+        "one-time code"
     ],
-    "homepage": "https://github.com/nextapps-be/laravel-verification-code",
+    "homepage": "https://github.com/wotzebra/laravel-verification-code",
     "license": "MIT",
     "type": "library",
     "authors": [
         {
-            "name": "Evert Arnould",
-            "email": "evert@nextapps.be",
-            "role": "Developer"
-        },
-        {
             "name": "Günther Debrauwer",
-            "email": "gunther@nextapps.be",
-            "role": "Developer"
-        },
-        {
-            "name": "Philippe Damen",
-            "email": "philippe@nextapps.be",
+            "email": "gunther.debrauwer@whoownsthezebra.be",
             "role": "Developer"
         }
     ],
@@ -42,12 +33,12 @@
     },
     "autoload": {
         "psr-4": {
-            "NextApps\\VerificationCode\\": "src"
+            "Wotz\\VerificationCode\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "NextApps\\VerificationCode\\Tests\\": "tests"
+            "Wotz\\VerificationCode\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -62,10 +53,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "NextApps\\VerificationCode\\VerificationCodeServiceProvider"
+                "Wotz\\VerificationCode\\VerificationCodeServiceProvider"
             ],
             "aliases": {
-                "VerificationCode": "NextApps\\VerificationCode\\VerificationCode"
+                "VerificationCode": "Wotz\\VerificationCode\\VerificationCode"
             }
         }
     }

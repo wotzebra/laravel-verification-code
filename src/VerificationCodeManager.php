@@ -1,14 +1,14 @@
 <?php
 
-namespace NextApps\VerificationCode;
+namespace Wotz\VerificationCode;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
-use NextApps\VerificationCode\Models\VerificationCode;
-use NextApps\VerificationCode\Notifications\VerificationCodeCreated;
-use NextApps\VerificationCode\Notifications\VerificationCodeCreatedInterface;
 use RuntimeException;
+use Wotz\VerificationCode\Models\VerificationCode;
+use Wotz\VerificationCode\Notifications\VerificationCodeCreated;
+use Wotz\VerificationCode\Notifications\VerificationCodeCreatedInterface;
 
 class VerificationCodeManager
 {
