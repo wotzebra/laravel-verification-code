@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-verification-code` will be documented in this file
 
+## 4.0.0 - 2026-04-01
+
+- Added: Laravel 13 and PHP 8.5 support while dropping support for Laravel 7, 8, 9, 10, 11 and PHP 8.1, 8.2 ([#43](https://github.com/wotzebra/laravel-verification-code/pull/43))
+
 ## 3.1.0 - 2025-03-05
 
 - Added: Laravel 12 support ([#42](https://github.com/wotzebra/laravel-verification-code/pull/42))
