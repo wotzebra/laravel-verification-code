@@ -3,13 +3,14 @@
 namespace Wotz\VerificationCode\Tests\Models;
 
 use Illuminate\Support\Facades\Hash;
+use PHPUnit\Framework\Attributes\Test;
 use Wotz\VerificationCode\Models\VerificationCode;
 use Wotz\VerificationCode\Support\CodeGenerator;
 use Wotz\VerificationCode\Tests\TestCase;
 
 class VerificationCodeTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_creates_and_returns_code()
     {
         $code = VerificationCode::createFor('taylor@laravel.com');
@@ -20,7 +21,7 @@ class VerificationCodeTest extends TestCase
         $this->assertNotNull($dbVerificationCode->expires_at);
     }
 
-    /** @test */
+    #[Test]
     public function it_sets_expiration_date_based_on_config()
     {
         config()->set('verification-code.expire_seconds', 6 * 60 * 60);
@@ -33,7 +34,7 @@ class VerificationCodeTest extends TestCase
         $this->assertEquals(0, (int) $dbVerificationCode->expires_at->diffInMinutes(now()->addHours(6)));
     }
 
-    /** @test */
+    #[Test]
     public function it_creates_code_using_code_generator()
     {
         $this->mock(CodeGenerator::class, function ($mock) {
@@ -45,7 +46,7 @@ class VerificationCodeTest extends TestCase
         $this->assertTrue(Hash::check('ABC123', VerificationCode::first()->code));
     }
 
-    /** @test */
+    #[Test]
     public function it_deletes_old_codes_of_verifiable_if_max_codes_reached()
     {
         config()->set('verification-code.max_per_verifiable', 3);
@@ -67,7 +68,7 @@ class VerificationCodeTest extends TestCase
         $this->assertNotNull(VerificationCode::find($otherVerificationCode->id));
     }
 
-    /** @test */
+    #[Test]
     public function it_sets_expiration_date_if_not_set_on_create()
     {
         config()->set('verification-code.expire_seconds', 4 * 60 * 60);
@@ -82,7 +83,7 @@ class VerificationCodeTest extends TestCase
         $this->assertEquals(0, (int) $verificationCode->expires_at->diffInMinutes(now()->addHours(4)));
     }
 
-    /** @test */
+    #[Test]
     public function it_does_not_set_expiration_date_if_already_set_on_create()
     {
         config()->set('verification.expire_seconds', 4 * 60 * 60);
@@ -97,7 +98,7 @@ class VerificationCodeTest extends TestCase
         $this->assertNotEquals(0, $verificationCode->expires_at->diffInMinutes(now()->addHours(4)));
     }
 
-    /** @test */
+    #[Test]
     public function it_hashes_code_if_not_hashed_yet_on_create()
     {
         $verificationCode = VerificationCode::create([
@@ -108,7 +109,7 @@ class VerificationCodeTest extends TestCase
         $this->assertTrue(Hash::check('ABC123', $verificationCode->code));
     }
 
-    /** @test */
+    #[Test]
     public function it_does_not_hash_code_if_already_hashed_on_create()
     {
         $verificationCode = VerificationCode::create([

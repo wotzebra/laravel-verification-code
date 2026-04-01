@@ -2,12 +2,13 @@
 
 namespace Wotz\VerificationCode\Tests\Feature;
 
+use PHPUnit\Framework\Attributes\Test;
 use Wotz\VerificationCode\Models\VerificationCode;
 use Wotz\VerificationCode\Tests\TestCase;
 
 class PruneCommandTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_deletes_old_expired_code()
     {
         $verificationCode = VerificationCode::create([
@@ -22,7 +23,7 @@ class PruneCommandTest extends TestCase
         $this->assertNull(VerificationCode::find($verificationCode->id));
     }
 
-    /** @test */
+    #[Test]
     public function it_does_not_delete_old_but_not_expired_code()
     {
         $verificationCode = VerificationCode::create([
@@ -37,7 +38,7 @@ class PruneCommandTest extends TestCase
         $this->assertNotNull(VerificationCode::find($verificationCode->id));
     }
 
-    /** @test */
+    #[Test]
     public function it_does_not_delete_code_that_is_not_old_enough()
     {
         $verificationCode = VerificationCode::create([

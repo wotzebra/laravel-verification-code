@@ -2,6 +2,7 @@
 
 namespace Wotz\VerificationCode\Tests\Facade;
 
+use PHPUnit\Framework\Attributes\Test;
 use RuntimeException;
 use Wotz\VerificationCode\Models\VerificationCode;
 use Wotz\VerificationCode\Tests\TestCase;
@@ -9,13 +10,13 @@ use Wotz\VerificationCode\VerificationCode as VerificationCodeFacade;
 
 class CustomVerificationCodeClassTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_returns_the_model_verification_code_class_by_default()
     {
         $this->assertSame(VerificationCode::class, VerificationCodeFacade::getModelClass());
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_the_model_class_that_was_set_in_the_config()
     {
         config()->set('verification-code.model', ModelDoesExtendVerificationCode::class);
@@ -23,7 +24,7 @@ class CustomVerificationCodeClassTest extends TestCase
         $this->assertSame(ModelDoesExtendVerificationCode::class, VerificationCodeFacade::getModelClass());
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_exception_if_notification_does_not_extend_the_verification_notification_class()
     {
         $this->expectException(RuntimeException::class);

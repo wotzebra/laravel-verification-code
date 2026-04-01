@@ -2,13 +2,14 @@
 
 namespace Wotz\VerificationCode\Tests\Feature;
 
+use PHPUnit\Framework\Attributes\Test;
 use Wotz\VerificationCode\Models\VerificationCode;
 use Wotz\VerificationCode\Tests\TestCase;
 use Wotz\VerificationCode\VerificationCode as VerificationCodeFacade;
 
 class VerifyVerificationCodeTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_returns_true_if_code_is_valid_for_verifiable()
     {
         VerificationCode::create([
@@ -19,7 +20,7 @@ class VerifyVerificationCodeTest extends TestCase
         $this->assertTrue(VerificationCodeFacade::verify('ABC123', 'taylor@laravel.com'));
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_false_if_code_is_invalid_for_verifiable()
     {
         VerificationCode::create([
@@ -30,7 +31,7 @@ class VerifyVerificationCodeTest extends TestCase
         $this->assertFalse(VerificationCodeFacade::verify('123ABC', 'taylor@laravel.com'));
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_false_if_code_is_valid_for_verifiable_but_has_expired()
     {
         VerificationCode::create([
@@ -42,7 +43,7 @@ class VerifyVerificationCodeTest extends TestCase
         $this->assertFalse(VerificationCodeFacade::verify('123ABC', 'taylor@laravel.com'));
     }
 
-    /** @test */
+    #[Test]
     public function it_deletes_code_if_used_for_verification()
     {
         $verificationCode = VerificationCode::create([
@@ -57,7 +58,7 @@ class VerifyVerificationCodeTest extends TestCase
         $this->assertNull(VerificationCode::find($verificationCode->id));
     }
 
-    /** @test */
+    #[Test]
     public function it_does_not_delete_code_if_cleanup_is_false()
     {
         $verificationCode = VerificationCode::create([
@@ -69,7 +70,7 @@ class VerifyVerificationCodeTest extends TestCase
         $this->assertNotNull(VerificationCode::find($verificationCode->id));
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_true_if_test_code_used_by_test_verifiable()
     {
         config()->set('verification-code.test_verifiables', ['taylor@laravel.com']);
@@ -78,7 +79,7 @@ class VerifyVerificationCodeTest extends TestCase
         $this->assertTrue(VerificationCodeFacade::verify('TESTCODE', 'taylor@laravel.com'));
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_false_if_invalid_test_code_used_by_test_verifiable()
     {
         config()->set('verification-code.test_verifiables', ['taylor@laravel.com']);
@@ -87,7 +88,7 @@ class VerifyVerificationCodeTest extends TestCase
         $this->assertFalse(VerificationCodeFacade::verify('OTHERCODE', 'taylor@laravel.com'));
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_false_if_test_code_used_by_non_test_verifiable()
     {
         config()->set('verification-code.test_verifiables', ['taylor@laravel.com']);
@@ -96,7 +97,7 @@ class VerifyVerificationCodeTest extends TestCase
         $this->assertFalse(VerificationCodeFacade::verify('TESTCODE', 'dries@laravel.com'));
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_false_if_test_code_is_empty_in_config()
     {
         config()->set('verification-code.test_verifiables', ['taylor@laravel.com']);
@@ -105,7 +106,7 @@ class VerifyVerificationCodeTest extends TestCase
         $this->assertFalse(VerificationCodeFacade::verify('', 'taylor@laravel.com'));
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_true_if_code_matches_with_one_of_the_codes_for_verifiable()
     {
         config()->set('verification-code.max_per_verifiable', 3);
@@ -129,7 +130,7 @@ class VerifyVerificationCodeTest extends TestCase
         $this->assertEquals(0, VerificationCode::for('taylor@laravel.com')->count());
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_false_if_code_matches_none_of_the_codes_for_verifiable()
     {
         config()->set('verification-code.max_per_verifiable', 3);
