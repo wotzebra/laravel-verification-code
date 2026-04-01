@@ -3,13 +3,14 @@
 namespace Wotz\VerificationCode\Tests\Support;
 
 use Illuminate\Support\Str;
+use PHPUnit\Framework\Attributes\Test;
 use RuntimeException;
 use Wotz\VerificationCode\Support\CodeGenerator;
 use Wotz\VerificationCode\Tests\TestCase;
 
 class CodeGeneratorTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_generates_code_using_length_from_config()
     {
         config()->set('verification-code.length', 4);
@@ -19,7 +20,7 @@ class CodeGeneratorTest extends TestCase
         $this->assertCount(4, str_split($code));
     }
 
-    /** @test */
+    #[Test]
     public function it_generates_code_using_characters_from_config()
     {
         config()->set('verification-code.characters', 'abc123');
@@ -31,7 +32,7 @@ class CodeGeneratorTest extends TestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function it_generates_code_using_unicode_characters_from_config()
     {
         config()->set('verification-code.characters', 'цукенгзхфывапролджэячсмитбю');
@@ -43,7 +44,7 @@ class CodeGeneratorTest extends TestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_exception_if_length_is_no_integer()
     {
         config()->set('verification-code.length', null);
@@ -54,7 +55,7 @@ class CodeGeneratorTest extends TestCase
         app(CodeGenerator::class)->generate();
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_exception_if_characters_is_empty_string()
     {
         config()->set('verification-code.characters', '');

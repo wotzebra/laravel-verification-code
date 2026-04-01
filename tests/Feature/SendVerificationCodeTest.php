@@ -5,6 +5,7 @@ namespace Wotz\VerificationCode\Tests\Feature;
 use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Testing\Fakes\NotificationFake;
+use PHPUnit\Framework\Attributes\Test;
 use RuntimeException;
 use Wotz\VerificationCode\Models\VerificationCode;
 use Wotz\VerificationCode\Notifications\VerificationCodeCreated;
@@ -13,7 +14,7 @@ use Wotz\VerificationCode\VerificationCode as VerificationCodeFacade;
 
 class SendVerificationCodeTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_sends_mail_notification_to_verifiable()
     {
         VerificationCodeFacade::send('taylor@laravel.com');
@@ -32,7 +33,7 @@ class SendVerificationCodeTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_sets_notification_queue_based_on_config()
     {
         config()->set('verification-code.queue', 'random-queue');
@@ -48,7 +49,7 @@ class SendVerificationCodeTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_sends_notification_using_provided_channel()
     {
         if (! method_exists(NotificationFake::class, 'assertSentOnDemand')) {
@@ -62,7 +63,7 @@ class SendVerificationCodeTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function it_sends_no_notification_to_test_verifiable()
     {
         config()->set('verification-code.test_verifiables', ['taylor@laravel.com']);
@@ -74,7 +75,7 @@ class SendVerificationCodeTest extends TestCase
         Notification::assertNothingSent();
     }
 
-    /** @test */
+    #[Test]
     public function it_sends_no_notification_to_uppercase_test_verifiable()
     {
         config()->set('verification-code.test_verifiables', ['taylor@laravel.com']);
@@ -86,7 +87,7 @@ class SendVerificationCodeTest extends TestCase
         Notification::assertNothingSent();
     }
 
-    /** @test */
+    #[Test]
     public function it_deletes_old_code_of_verifiable_on_send()
     {
         $oldVerificationCode = VerificationCode::create(['code' => 'ABC123', 'verifiable' => 'taylor@laravel.com']);
@@ -97,7 +98,7 @@ class SendVerificationCodeTest extends TestCase
         $this->assertCount(1, VerificationCode::where('verifiable', 'taylor@laravel.com')->get());
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_exception_if_notification_does_not_extend_the_verification_notification_class()
     {
         $this->expectException(RuntimeException::class);
