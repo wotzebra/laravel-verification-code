@@ -13,7 +13,7 @@ class VerificationCodeCreated extends Notification implements ShouldQueue, Verif
 
     public $code;
 
-    public function __construct(string $code)
+    public function __construct(string $code, ...$args)
     {
         $this->code = $code;
     }
